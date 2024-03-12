@@ -1,0 +1,35 @@
+// settings.json
+// Place your settings in this file to overwrite the default settings
+{
+    // Tiled
+    "files.associations": {
+        "*.tsx": "xml",
+    },
+    // FVM flutter version
+    // "dart.flutterSdkPath": ".fvm/flutter_sdk",
+    // Remove .fvm files from search
+    "search.exclude": {
+        "**/.fvm": true
+    },
+    // Remove from file watching
+    "files.watcherExclude": {
+        "**/.fvm": true
+    },
+    // flutter
+    "dart.lineLength": 120,
+    "[dart]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.rulers": [
+            120
+        ],
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit",
+            "source.organizeImports": "explicit"
+        },
+        "editor.formatOnSave": true,
+    },
+    "chat.editor.fontSize": 10,
+    "cmake.sourceDirectory": "/Users/mavbook/examples/adeo/linux",
+    "java.configuration.updateBuildConfiguration": "disabled"
+}
