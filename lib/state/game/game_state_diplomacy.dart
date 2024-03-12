@@ -17,8 +17,6 @@ extension GameStateDiplomacy on GameState {
       possibleTiles.add(TileData(layerId: AppLayers.terrain, position: building.tilePosition, data: tile));
     }
 
-    print('possibleTiles: $possibleTiles');
-
     // if available tiles, highlight them
     for (final tile in possibleTiles) {
       add(DiplomacyPlacementTile(tilePosition: tile.position, isPaused: false));

@@ -34,7 +34,7 @@ mixin Progress on TileComponent {
     final bar = Rect.fromLTWH(
       _rect.left + 1,
       _rect.top + 1,
-      (_rect.width - 2) * (timeElapsed / duration),
+      (_rect.width - 2) * (timeElapsed / duration).clamp(0, 1),
       _rect.height - 2,
     );
 

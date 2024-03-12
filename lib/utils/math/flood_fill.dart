@@ -30,10 +30,7 @@ class FloodFiller {
   TilePosition? getNextPoint(TilePosition start) {
     _addStep(start);
 
-    // print('start: ${DateTime.now().millisecondsSinceEpoch}');
     final result = _process();
-    // print('end: ${DateTime.now().millisecondsSinceEpoch}');
-
     return result;
   }
 

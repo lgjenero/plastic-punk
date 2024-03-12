@@ -22,6 +22,7 @@ class ResearchCentreTile extends BuildingTile {
   void startResearch(TechnologyType technology) {
     if (_researching != null) return;
     _researching = technology;
+    _timeElapsed = 0;
   }
 
   @override
@@ -35,19 +36,19 @@ class ResearchCentreTile extends BuildingTile {
     if (_researching == null) return;
 
     if (_researchCentreTileObject == null) {
-      scheduleMicrotask(() {
-        _createProgress(state);
-      });
+      _createProgress(state);
+      return;
     }
 
     _timeElapsed += dt;
     if (_timeElapsed >= AppTimes.researchCentreResearchDuration) {
       _timeElapsed = 0;
       scheduleMicrotask(() {
+        final tech = _researching!;
+        _researching = null;
         _removeProgress(state);
+        state.addTechnology(tech);
       });
-      state.addTechnology(_researching!);
-      _researching = null;
     }
   }
 
@@ -61,6 +62,12 @@ class ResearchCentreTile extends BuildingTile {
       state.mapComponent.remove(_researchCentreTileObject!);
       _researchCentreTileObject = null;
     }
+  }
+
+  @override
+  void remove(GameState state) {
+    super.remove(state);
+    _removeProgress(state);
   }
 }
 

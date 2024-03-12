@@ -39,8 +39,6 @@ class WaterCleanupTile extends BuildingTile {
         if (!useAutomaticCleanup) return;
 
         final autoTile = CleanupTile.spawn(tilePosition, state, true);
-        print('Water cleanup autoTile: ${autoTile?.tilePosition}');
-
         if (autoTile == null) return;
 
         tile = autoTile.tilePosition;

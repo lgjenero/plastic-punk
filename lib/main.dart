@@ -10,5 +10,9 @@ void main() async {
   await Flame.device.fullScreen();
   if (isMobile) await Flame.device.setLandscape();
 
-  runApp(const ProviderScope(child: MaterialApp(home: SplashScreen())));
+  runApp(const ProviderScope(
+      child: MaterialApp(
+    home: SplashScreen(),
+    debugShowCheckedModeBanner: false,
+  )));
 }
