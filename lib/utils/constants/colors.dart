@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static const Color splashButtonBackground = Color(0xFF000000);
+  static const Color splashButtonForeground = Color(0xFFFFFFFF);
   static const Color buttonBackground = Color(0xFF7D0DC3);
   static const Color buttonForeground = Color(0xFFFFFF80);
   static const Color introBackground = Color(0xFF000000);
@@ -13,4 +15,13 @@ class AppColors {
   static const Color hudLink = Color(0xFFB7C9E2);
   static const Color titleOutline = Color(0xFF7D0DC3);
   static const Color titleColor = Color(0xFFFFFF80);
+
+  static const Color tooltipBackground = Color(0xFFFFFF80);
+  static const Color tooltipForeground = Color(0xFF7D0DC3);
+
+  static const Color onboardingTooltipBackground = Color(0xFFFFFF80);
+  static const Color onboardingTooltipForeground = Color(0xFF7D0DC3);
+
+  static const Color snackbarSuccessBackground = Color(0xFF00AB41);
+  static const Color snackbarSuccessForeground = Color(0xFFFFFFFF);
 }

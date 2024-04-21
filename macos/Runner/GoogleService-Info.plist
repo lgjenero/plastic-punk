@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDy5PQGRkugNKoRoDqJbnC1OB_QehqItzk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>697512189134</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>co.cococode.plasticPunk.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>plasticpunk-e6622</string>
+	<key>STORAGE_BUCKET</key>
+	<string>plasticpunk-e6622.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:697512189134:ios:eff3c8b91072f3f8cc849f</string>
+</dict>
+</plist>

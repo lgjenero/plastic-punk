@@ -18,7 +18,7 @@ class ResearchOverlay extends StatelessWidget {
 
   final FlameGame game;
 
-  const ResearchOverlay({required this.game, Key? key}) : super(key: key);
+  const ResearchOverlay({required this.game, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,22 +50,25 @@ class ResearchList extends ConsumerWidget {
   final SizeLayout size;
   final FlameGame game;
 
-  const ResearchList({required this.size, required this.game, Key? key}) : super(key: key);
+  const ResearchList({required this.size, required this.game, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final technology = TechnologyTree.nodes;
-    final buildings = ref
-        .watch(gameStateProvider.select((e) => e.objects))
-        .whereType<BuildingTile>()
-        .where((e) => e.constructed)
-        .map((e) => e.buildingId)
-        .toSet();
+    final level = ref.read(gameStateProvider.notifier).level;
+    final technology = TechnologyTree.nodes.where((e) => level.enabledTechnologies.contains(e.type)).toList();
+    final buildings =
+        ref.watch(gameStateProvider.select((e) => e.objects)).whereType<BuildingTile>().where((e) => e.constructed);
+
     final resources = ref.watch(gameStateProvider.select((e) => e.availableResources));
     final existingTechnology = ref.watch(gameStateProvider.select((e) => e.technologies));
     final researching =
         buildings.whereType<ResearchCentreTile>().map((e) => e.researching).whereType<TechnologyType>().toSet();
-    final canResearch = _calculateAvailableTechnologies(technology, buildings, resources, existingTechnology);
+    final canResearch = _calculateAvailableTechnologies(
+      technology,
+      buildings.map((e) => e.buildingId).toSet(),
+      resources,
+      existingTechnology,
+    );
 
     return Container(
       padding: const EdgeInsets.all(4),
@@ -91,7 +94,13 @@ class ResearchList extends ConsumerWidget {
                   itemExtent: AppSizes.hudTechnology(size),
                   itemBuilder: (context, index) {
                     final tech = technology.elementAt(index);
-                    return _buildTech(tech, canResearch.contains(tech.type), researching.contains(tech.type), ref);
+                    return _buildTech(
+                      tech,
+                      canResearch.contains(tech.type),
+                      researching.contains(tech.type),
+                      existingTechnology.contains(tech.type),
+                      ref,
+                    );
                   },
                 ),
               ),
@@ -124,9 +133,9 @@ class ResearchList extends ConsumerWidget {
     );
   }
 
-  Widget _buildTech(TechnologyNode tech, bool canResearch, bool isResearching, WidgetRef ref) {
+  Widget _buildTech(TechnologyNode tech, bool canResearch, bool isResearching, bool alreadyResearched, WidgetRef ref) {
     Widget image = Image.asset(tech.imageAsset);
-    if (!canResearch) {
+    if (!canResearch && !alreadyResearched) {
       image = Grayscale(child: image);
     }
 
@@ -142,6 +151,11 @@ class ResearchList extends ConsumerWidget {
           return;
         }
 
+        if (alreadyResearched) {
+          // some feedback
+          return;
+        }
+
         game.overlays.remove(ResearchOverlay.overlayId);
         ref.read(gameStateProvider.notifier).researchTechnology(tech);
       },
@@ -152,24 +166,21 @@ class ResearchList extends ConsumerWidget {
             Positioned.fill(
               child: Column(
                 children: [
-                  Transform.scale(
-                    scale: 0.6,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      physics: const NeverScrollableScrollPhysics(),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ...tech.resourcesRequired.map((e) {
-                            return ResourceWidget(size: size, type: e.type, amount: e.amount);
-                          }),
-                          ...tech.resourcesConsumed.map((e) {
-                            return ResourceWidget(size: size, type: e.type, amount: e.amount);
-                          }),
-                        ],
-                      ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const NeverScrollableScrollPhysics(),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ...tech.resourcesRequired.map((e) {
+                          return ResourceWidget(size: size, type: e.type, amount: e.amount, scale: 0.6);
+                        }),
+                        ...tech.resourcesConsumed.map((e) {
+                          return ResourceWidget(size: size, type: e.type, amount: e.amount, scale: 0.6);
+                        }),
+                      ],
                     ),
                   ),
                   Expanded(
@@ -183,11 +194,26 @@ class ResearchList extends ConsumerWidget {
                               color: AppColors.hudBackground,
                               borderRadius: BorderRadius.all(Radius.circular(8)),
                             ),
-                            padding: const EdgeInsets.all(4),
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                             child: Text(
                               'Researching...',
                               style: AppFonts.hud(size).copyWith(color: AppColors.hudForeground),
                               textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      if (alreadyResearched)
+                        Center(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: AppColors.hudBackground,
+                              shape: BoxShape.circle,
+                            ),
+                            padding: const EdgeInsets.all(6),
+                            child: Icon(
+                              Icons.check_rounded,
+                              size: AppSizes.hudSymbol(size),
+                              color: AppColors.hudForeground,
                             ),
                           ),
                         ),
@@ -233,6 +259,8 @@ class ResearchList extends ConsumerWidget {
     final availableTechnologies = <TechnologyType>{};
 
     for (final tech in technology) {
+      // if (existingTechnology.contains(tech.type)) continue;
+
       final requiredBuildingsOk = tech.buildingsRequired.every(buildings.contains);
       if (!requiredBuildingsOk) continue;
 

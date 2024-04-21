@@ -18,7 +18,7 @@ class BuildOverlay extends StatelessWidget {
 
   final FlameGame game;
 
-  const BuildOverlay({required this.game, Key? key}) : super(key: key);
+  const BuildOverlay({required this.game, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +50,12 @@ class BuildingList extends ConsumerWidget {
   final SizeLayout size;
   final FlameGame game;
 
-  const BuildingList({required this.size, required this.game, Key? key}) : super(key: key);
+  const BuildingList({required this.size, required this.game, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final buildings = BuildingTree.nodes;
+    final level = ref.read(gameStateProvider.notifier).level;
+    final buildings = BuildingTree.nodes.where((e) => level.enabledBuildings.contains(e.id)).toList();
     final existingBuildings = ref
         .watch(gameStateProvider.select((e) => e.objects))
         .whereType<BuildingTile>()
@@ -143,7 +144,6 @@ class BuildingList extends ConsumerWidget {
     return InkWell(
       onTap: () {
         if (!canBuild) {
-          // some feedback
           return;
         }
 
@@ -158,9 +158,8 @@ class BuildingList extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Transform.scale(
-                    scale: 0.6,
-                    child: SingleChildScrollView(
+                  if (building.resourcesRequired.isNotEmpty || building.resourcesConsumed.isNotEmpty)
+                    SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       physics: const NeverScrollableScrollPhysics(),
                       child: Row(
@@ -168,16 +167,42 @@ class BuildingList extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          Text('Costs: ', style: AppFonts.hud(size).copyWith(color: AppColors.hudForeground)),
                           ...building.resourcesRequired.map((e) {
-                            return ResourceWidget(size: size, type: e.type, amount: e.amount);
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: ResourceWidget(size: size, type: e.type, amount: e.amount, scale: 0.6),
+                            );
                           }),
                           ...building.resourcesConsumed.map((e) {
-                            return ResourceWidget(size: size, type: e.type, amount: e.amount);
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: ResourceWidget(size: size, type: e.type, amount: e.amount, scale: 0.6),
+                            );
                           }),
                         ],
                       ),
                     ),
-                  ),
+                  const SizedBox(height: 4),
+                  if (building.resourcesProvided.isNotEmpty)
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text('Provides: ', style: AppFonts.hud(size).copyWith(color: AppColors.hudForeground)),
+                          ...building.resourcesProvided.map((e) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 20),
+                              child: ResourceWidget(size: size, type: e.type, amount: e.amount, scale: 0.6),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
                   Expanded(child: image),
                   const SizedBox(height: 4),
                   Text(

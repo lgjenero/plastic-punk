@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="isometric" renderorder="right-down" width="9" height="9" tilewidth="256" tileheight="160" infinite="0" nextlayerid="4" nextobjectid="8">
+ <tileset firstgid="1" source="map_tiles.tsx"/>
+ <layer id="1" name="Template" width="9" height="9" visible="0" locked="1">
+  <data encoding="csv">
+101,5,4,4,2,4,4,5,5,
+102,2,4,2,3,2,4,2,3,
+103,101,5,3,2,3,5,2,4,
+101,101,102,3,5,3,3,2,4,
+103,102,101,103,2,2,2,4,102,
+102,102,102,103,101,2,2,102,102,
+103,103,102,102,102,101,101,101,101,
+103,102,102,103,102,101,101,103,101,
+103,101,103,103,102,101,102,101,103
+</data>
+ </layer>
+ <layer id="2" name="Terrain" width="9" height="9" locked="1">
+  <data encoding="csv">
+401,5,4,4,2,4,4,5,5,
+401,401,4,2,3,2,4,2,3,
+401,401,5,3,2,3,5,2,4,
+401,401,401,3,5,3,3,2,4,
+401,401,401,401,2,2,2,4,102,
+401,401,401,401,401,2,2,102,102,
+401,401,401,401,401,401,401,401,401,
+401,401,401,401,401,401,401,401,401,
+401,401,401,401,401,401,401,401,401
+</data>
+ </layer>
+ <layer id="3" name="Overlay" width="9" height="9" locked="1" opacity="0.6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="1" name="Objects" locked="1">
+  <object id="1" name="Start" x="1204.21" y="250.665">
+   <properties>
+    <property name="tileX" type="float" value="7"/>
+    <property name="tileY" type="float" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="2" name="TownHall" type="Building" x="1225.43" y="223.483">
+   <properties>
+    <property name="buildingId" type="int" value="310"/>
+    <property name="tileX" type="float" value="7"/>
+    <property name="tileY" type="float" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="3" name="Tracks" type="Building" x="1210.53" y="412.85">
+   <properties>
+    <property name="buildingId" type="int" value="601"/>
+    <property name="tileX" type="float" value="7"/>
+    <property name="tileY" type="float" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="4" name="Garden" type="Building" x="1067.06" y="413.018">
+   <properties>
+    <property name="buildingId" type="int" value="311"/>
+    <property name="tileX" type="float" value="6"/>
+    <property name="tileY" type="float" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="5" name="House" type="Building" x="1356.71" y="414.652">
+   <properties>
+    <property name="buildingId" type="int" value="302"/>
+    <property name="tileX" type="float" value="8"/>
+    <property name="tileY" type="float" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="6" name="Research" type="Building" x="1035.63" y="93.2239">
+   <properties>
+    <property name="buildingId" type="int" value="306"/>
+    <property name="tileX" type="float" value="6"/>
+    <property name="tileY" type="float" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="7" name="Tracks" type="Building" x="1038.94" y="234.944">
+   <properties>
+    <property name="buildingId" type="int" value="601"/>
+    <property name="tileX" type="float" value="6"/>
+    <property name="tileY" type="float" value="1"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+</map>

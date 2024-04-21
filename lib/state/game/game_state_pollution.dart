@@ -20,5 +20,42 @@ extension GameStatePollution on GameState {
       y: position.y,
       gid: Gid(plutionTileId, const Flips.defaults()),
     );
+
+    final isWater = AppTiles.waterTiles.contains(templateTile.tile);
+    if (isWater) {
+      _removeWaterAnimation(position);
+      _addWaterPollutionAnimation(position);
+    }
+  }
+
+  void removePollution(TilePosition position, {bool addAnimation = true}) {
+    final terrainTile = _mapComponent.tileMap.getTileData(
+      layerId: AppLayers.terrain,
+      x: position.x,
+      y: position.y,
+    );
+    if (!AppTiles.pollutionTiles.contains(terrainTile?.tile)) return;
+
+    final tile = mapComponent.tileMap.getTileData(
+      layerId: AppLayers.template,
+      x: position.x,
+      y: position.y,
+    );
+    if (tile != null) {
+      mapComponent.tileMap.setTileData(
+        layerId: AppLayers.terrain,
+        x: position.x,
+        y: position.y,
+        gid: tile,
+      );
+    } else {
+      throw Exception('No template tile found at ${position.x}, ${position.y}');
+    }
+
+    final isWater = AppTiles.waterTiles.contains(tile.tile);
+    if (isWater) {
+      _removeWaterPollutionAnimation(position);
+      if (addAnimation) _addWaterAnimation(position);
+    }
   }
 }

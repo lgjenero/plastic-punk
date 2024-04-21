@@ -1,20 +1,23 @@
-import 'dart:async';
-
-import 'package:plastic_punk/state/game/components/tile_position.dart';
+import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
+import 'package:plastic_punk/state/game/components/tile_animation_component.dart';
 import 'package:plastic_punk/state/game/game_state.dart';
-import 'package:plastic_punk/state/game/objects/building_tile.dart';
-import 'package:plastic_punk/state/game/objects/cleanup_tile.dart';
-import 'package:plastic_punk/state/game/resources/resource.dart';
-import 'package:plastic_punk/utils/constants/amounts.dart';
+import 'package:plastic_punk/state/game/objects/building_cleaning_tile.dart';
+import 'package:plastic_punk/state/game/sfx/sfx.dart';
+import 'package:plastic_punk/utils/constants/priorities.dart';
 import 'package:plastic_punk/utils/constants/tiles.dart';
 import 'package:plastic_punk/utils/constants/times.dart';
 
-class PlasticsEnergyTile extends BuildingTile {
+class PlasticsEnergyTile extends BuildingCleaningTile {
   PlasticsEnergyTile({required super.tilePosition, required super.isPaused, super.startsConstructed})
-      : super(buildingId: AppTiles.plasticsEnergy);
+      : super(
+          cleaningPeriod: () => AppTimes.plasticsBurningCleanupDuration,
+          cleansWater: false,
+          buildingId: AppTiles.plasticsEnergy,
+          sfxLoop: SfxLoop.plasticsEnergy,
+        );
 
-  double _cleaningTimeElapsed = 0;
-  bool _electricityAdded = false;
+  PlasticsEnergyTileObject? _animationComponent;
 
   @override
   void update(double dt, GameState state) {
@@ -24,48 +27,54 @@ class PlasticsEnergyTile extends BuildingTile {
 
     if (!constructed) return;
 
-    if (!_electricityAdded) {
-      _electricityAdded = true;
-      scheduleMicrotask(() {
-        state.addResource(
-            Resource(type: ResourceType.electricity, amount: AppAmmounts.plasticsBurningElectricityAmount));
-      });
-    }
-
-    _cleaningTimeElapsed += dt;
-    if (_cleaningTimeElapsed >= AppTimes.plasticsBurningCleanupDuration) {
-      // setup a tile to be cleaned
-      scheduleMicrotask(() {
-        _initiateCleaning(state);
-      });
+    if (_animationComponent == null) {
+      _setupAnimation(state);
     }
   }
 
   @override
   void remove(GameState state) {
     super.remove(state);
-    if (!_electricityAdded) return;
-    scheduleMicrotask(() {
-      state.removeResource(
-          Resource(type: ResourceType.electricity, amount: AppAmmounts.plasticsBurningElectricityAmount));
-    });
+    _removeAnimation(state);
   }
 
-  void _initiateCleaning(GameState state) async {
-    final useAutomaticCleanup = state.useAutomaticCleanup;
-    for (int i = 0; i < AppAmmounts.townHallCleanupTileSpawnCount; i++) {
-      TilePosition? tile = state.getTileToClean(false);
-      if (tile == null) {
-        if (!useAutomaticCleanup) return;
+  void _setupAnimation(GameState state) {
+    final tileSize = state.mapComponent.tileMap.destTileSize;
 
-        final autoTile = CleanupTile.spawn(tilePosition, state, false);
-        if (autoTile == null) return;
+    final positions = [
+      Vector2(tileSize.x * 0.17, tileSize.y * -0.025),
+      Vector2(tileSize.x * 0.5, tileSize.y * -0.4),
+    ].reversed;
 
-        tile = autoTile.tilePosition;
-      }
+    final animations = positions
+        .map(
+          (position) => SpriteAnimationComponent.fromFrameData(
+              Flame.images.fromCache('animations/smoke_1.png'),
+              SpriteAnimationData.variable(
+                amount: 16,
+                stepTimes: List.generate(16, (index) => 0.1),
+                textureSize: Vector2(64, 64),
+                amountPerRow: 4,
+              ),
+              size: Vector2.all(16),
+              position: position,
+              anchor: const Anchor(0.61, 1)),
+        )
+        .toList();
 
-      state.cleanTile(tile);
-      _cleaningTimeElapsed = 0;
+    _animationComponent = PlasticsEnergyTileObject(animations, tilePosition, state);
+    state.mapComponent.add(_animationComponent!);
+  }
+
+  void _removeAnimation(GameState state) {
+    if (_animationComponent != null) {
+      state.mapComponent.remove(_animationComponent!);
+      _animationComponent = null;
     }
   }
+}
+
+class PlasticsEnergyTileObject extends TileAnimationComponent {
+  PlasticsEnergyTileObject(super.animationComponent, super.tilePosition, super.state)
+      : super(priority: AppRenderPriorities.buildingPriority(state, tilePosition));
 }

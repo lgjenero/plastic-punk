@@ -13,6 +13,8 @@ extension GameStateResource on GameState {
     resources[resource.type] = updatedResource;
     availableResources[resource.type] = updatedAvailableResource;
     state = state.copyWith(resources: resources, availableResources: availableResources);
+
+    _checkImpact(resource);
   }
 
   void removeResource(Resource resource) {
@@ -36,5 +38,22 @@ extension GameStateResource on GameState {
     resources[resource.type] = updatedResource;
     availableResources[resource.type] = updatedAvailableResource;
     state = state.copyWith(resources: resources, availableResources: availableResources);
+
+    _checkImpact(resource);
+  }
+
+  void _checkImpact(Resource resource) {
+    if (resource.type != ResourceType.impact) return;
+
+    final impact = state.resources[ResourceType.impact]?.amount ?? 0;
+
+    double speedMultiplier = 1;
+    if (impact < 0) {
+      speedMultiplier = 0.5 + 0.5 * math.exp(impact / 20.0);
+    } else if (impact > 0) {
+      speedMultiplier = 1.0 + (1.0 - math.exp(-impact / 20.0));
+    }
+
+    updateGameSpeedMultiplier(speedMultiplier);
   }
 }

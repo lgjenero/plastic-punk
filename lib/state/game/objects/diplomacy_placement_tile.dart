@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_tiled/flame_tiled.dart';
@@ -8,9 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:plastic_punk/state/game/components/tile_component.dart';
 import 'package:plastic_punk/state/game/components/tile_position.dart';
 import 'package:plastic_punk/state/game/game_state.dart';
+import 'package:plastic_punk/state/game/messages/messages.dart';
+import 'package:plastic_punk/state/game/objects/bad_town_hall.dart';
 import 'package:plastic_punk/state/game/objects/game_object.dart';
 import 'package:plastic_punk/utils/constants/layers.dart';
-import 'package:plastic_punk/utils/constants/tiles.dart';
+import 'package:plastic_punk/utils/constants/priorities.dart';
 import 'package:plastic_punk/utils/math/math.dart';
 
 class DiplomacyPlacementTile extends GameObject {
@@ -28,34 +31,23 @@ class DiplomacyPlacementTile extends GameObject {
   void update(double dt, GameState state) {
     if (isPaused) return;
 
-    // check if the tile is valid (not polluted shore)
-    final neighbours = AppMath.getNeighbouringTile(tilePosition, AppLayers.terrain, state.mapComponent);
-    final highlightOk = neighbours.any((neighbour) => !AppTiles.pollutionTiles.contains(neighbour.data.tile));
+    final townHall = state.objects.whereType<BadTownHall>().firstWhereOrNull((e) => e.tilePosition == tilePosition);
+    final highlightOk = townHall?.pausePollution == false;
     if (highlightOk != _highlightOk) {
       _highlightOk = highlightOk;
-      _highlightAdded = false;
-      _removeComponent(state);
+      _placementTileObject?.setHighlightOk(highlightOk);
     }
 
     if (!_highlightAdded) {
       _highlightAdded = true;
       scheduleMicrotask(() {
-        // add the highligh to the map
-        state.mapComponent.tileMap.setTileData(
-          layerId: AppLayers.overlay,
-          x: tilePosition.x,
-          y: tilePosition.y,
-          gid: Gid(
-            _highlightOk ? AppTiles.buildingPlacement : AppTiles.buildingPlacementInvalid,
-            const Flips.defaults(),
-          ),
+        _placementTileObject = DiplomacyPlacementTileObject(
+          tilePosition,
+          state,
+          onTap: () => _tryToStartDiplomacy(state),
+          highlightOk: highlightOk,
         );
-
-        if (_highlightOk) {
-          _placementTileObject = DiplomacyPlacementTileObject(tilePosition, state,
-              onTap: () => state.startDiplomaticMission(tilePosition));
-          state.mapComponent.add(_placementTileObject!);
-        }
+        state.mapComponent.add(_placementTileObject!);
       });
     }
   }
@@ -84,11 +76,26 @@ class DiplomacyPlacementTile extends GameObject {
       );
     });
   }
+
+  void _tryToStartDiplomacy(GameState state) {
+    final townHall = state.objects.whereType<BadTownHall>().firstWhereOrNull((e) => e.tilePosition == tilePosition);
+    final diplomacyOk = townHall?.pausePollution == false;
+    if (!diplomacyOk) {
+      state.showMessage(Messages.crossRedLineToHaveDiplomacy);
+      return;
+    }
+
+    state.startDiplomaticMission(tilePosition);
+  }
 }
 
 class DiplomacyPlacementTileObject extends TileComponent with TapCallbacks {
   final VoidCallback? onTap;
-  DiplomacyPlacementTileObject(TilePosition tilePosition, GameState state, {this.onTap}) : super(tilePosition, state);
+  bool _highlightOk = true;
+  DiplomacyPlacementTileObject(super.tilePosition, super.state, {this.onTap, bool highlightOk = true})
+      : super(priority: AppRenderPriorities.progress) {
+    _highlightOk = highlightOk;
+  }
 
   @override
   void onTapUp(TapUpEvent event) {
@@ -103,5 +110,27 @@ class DiplomacyPlacementTileObject extends TileComponent with TapCallbacks {
     final d = Vector2(tileRect.width / 2, tileRect.height);
 
     return AppMath.isPointInPolygon([a, b, c, d], point);
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+
+    final paint = Paint()
+      ..color = _highlightOk ? const Color.fromARGB(128, 0, 186, 248) : const Color.fromARGB(128, 255, 1, 1)
+      ..style = PaintingStyle.fill;
+
+    final path = Path()
+      ..moveTo(tileRect.size.width / 2, 0)
+      ..lineTo(tileRect.size.width, tileRect.size.height / 2)
+      ..lineTo(tileRect.size.width / 2, tileRect.size.height)
+      ..lineTo(0, tileRect.size.height / 2)
+      ..close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  void setHighlightOk(bool highlightOk) {
+    _highlightOk = highlightOk;
   }
 }

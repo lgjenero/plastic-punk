@@ -1,4 +1,4 @@
-package com.example.plastic_punk
+package co.cococode.plastic_punk
 
 import io.flutter.embedding.android.FlutterActivity
 

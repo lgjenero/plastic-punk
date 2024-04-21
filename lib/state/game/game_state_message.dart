@@ -9,7 +9,13 @@ extension GameStateMessage on GameState {
   }
 
   void hideMessage() {
-    state = state.copyWith(resetMessage: true);
+    final currentMessage = state.message;
+    state = state.copyWith(message: null);
     _game.overlays.remove(MessageOverlay.overlayId);
+
+    // enable tooltips after the intro message
+    if (currentMessage == level.introMessage) {
+      ref.read(onboardingTooltipsProvider.notifier).setTooltipsEnabled(true);
+    }
   }
 }

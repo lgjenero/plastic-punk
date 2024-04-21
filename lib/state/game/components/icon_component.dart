@@ -4,6 +4,7 @@ import 'package:flame/components.dart';
 import 'package:plastic_punk/state/game/components/tile_component.dart';
 import 'package:plastic_punk/state/game/components/tile_position.dart';
 import 'package:plastic_punk/state/game/game_state.dart';
+import 'package:plastic_punk/utils/constants/priorities.dart';
 
 mixin Icon on TileComponent {
   late final String iconPath;
@@ -48,7 +49,7 @@ mixin Icon on TileComponent {
 
 class IconComponent extends TileComponent with Icon {
   IconComponent(TilePosition tilePosition, GameState state, String iconPath, {double aspectRatio = 1.0})
-      : super(tilePosition, state) {
+      : super(tilePosition, state, priority: AppRenderPriorities.icons) {
     initializeIcon(state, iconPath, aspectRatio);
   }
 }

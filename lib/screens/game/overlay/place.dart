@@ -12,7 +12,7 @@ class PlaceOverlay extends StatelessWidget {
 
   final FlameGame game;
 
-  const PlaceOverlay({required this.game, Key? key}) : super(key: key);
+  const PlaceOverlay({required this.game, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class PlaceOverlayContent extends ConsumerWidget {
   final SizeLayout size;
   final FlameGame game;
 
-  const PlaceOverlayContent({required this.size, required this.game, Key? key}) : super(key: key);
+  const PlaceOverlayContent({required this.size, required this.game, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

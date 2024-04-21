@@ -13,6 +13,17 @@ class AppFonts {
     );
   }
 
+  static TextStyle level(SizeLayout size) {
+    return TextStyle(
+      fontFamily: '04B_30',
+      fontSize: size == SizeLayout.small
+          ? 24
+          : size == SizeLayout.medium
+              ? 30
+              : 42,
+    );
+  }
+
   static TextStyle introText(SizeLayout size) {
     return TextStyle(
       fontFamily: 'Teko',
@@ -82,6 +93,41 @@ class AppFonts {
               ? 22
               : 26,
       fontWeight: FontWeight.w600,
+      decoration: TextDecoration.underline,
     );
+  }
+
+  static TextStyle tooltip(SizeLayout size) {
+    return TextStyle(
+      fontFamily: 'Teko',
+      fontSize: size == SizeLayout.small
+          ? 16
+          : size == SizeLayout.medium
+              ? 18
+              : 20,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle onboardingTooltip(SizeLayout size) {
+    return TextStyle(
+      fontFamily: 'Teko',
+      fontSize: size == SizeLayout.small
+          ? 16
+          : size == SizeLayout.medium
+              ? 18
+              : 20,
+      fontWeight: FontWeight.w600,
+    );
+  }
+}
+
+extension TextStyleUtils on TextStyle {
+  Size getTextSize(String text, {double minWidth = 0.0, double maxWidth = double.infinity}) {
+    final TextPainter textPainter = TextPainter(
+      text: TextSpan(text: text, style: this),
+      textDirection: TextDirection.ltr,
+    )..layout(minWidth: minWidth, maxWidth: maxWidth);
+    return textPainter.size;
   }
 }

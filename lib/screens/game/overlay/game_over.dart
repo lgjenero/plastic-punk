@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:plastic_punk/state/game/data/game_state_data.dart';
 import 'package:plastic_punk/state/game/game_state.dart';
 import 'package:plastic_punk/utils/constants/colors.dart';
 import 'package:plastic_punk/utils/constants/fonts.dart';
@@ -12,7 +13,7 @@ class GameOver extends StatelessWidget {
 
   final FlameGame game;
 
-  const GameOver({required this.game, Key? key}) : super(key: key);
+  const GameOver({required this.game, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class GameOverContent extends ConsumerWidget {
   final SizeLayout size;
   final FlameGame game;
 
-  const GameOverContent({required this.size, required this.game, Key? key}) : super(key: key);
+  const GameOverContent({required this.size, required this.game, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -82,7 +83,7 @@ class GameOverContent extends ConsumerWidget {
                       foregroundColor: AppColors.buttonBackground,
                       textStyle: AppFonts.button(size),
                     ),
-                    onPressed: () => _back(context),
+                    onPressed: () => _back(ref),
                     child: const Text('OK'),
                   ),
                 ],
@@ -94,7 +95,7 @@ class GameOverContent extends ConsumerWidget {
     );
   }
 
-  void _back(BuildContext context) {
-    Navigator.of(context).pop();
+  void _back(WidgetRef ref) {
+    ref.read(gameStateProvider.notifier).gameOver();
   }
 }

@@ -12,7 +12,7 @@ class DiplomacyOverlay extends StatelessWidget {
 
   final FlameGame game;
 
-  const DiplomacyOverlay({required this.game, Key? key}) : super(key: key);
+  const DiplomacyOverlay({required this.game, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class DiplmacyOverlayContent extends ConsumerWidget {
   final SizeLayout size;
   final FlameGame game;
 
-  const DiplmacyOverlayContent({required this.size, required this.game, Key? key}) : super(key: key);
+  const DiplmacyOverlayContent({required this.size, required this.game, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

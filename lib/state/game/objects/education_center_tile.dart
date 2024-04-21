@@ -1,22 +1,21 @@
-import 'package:plastic_punk/state/game/game_state.dart';
 import 'package:plastic_punk/state/game/objects/building_tile.dart';
+import 'package:plastic_punk/state/game/sfx/sfx.dart';
 import 'package:plastic_punk/utils/constants/tiles.dart';
 
 class EducationCentreTile extends BuildingTile {
-  EducationCentreTile({required super.tilePosition, required super.isPaused, super.startsConstructed})
-      : super(buildingId: AppTiles.educationCentre);
+  final int diplomacyCycles;
 
-  double _timeElapsed = 0;
+  EducationCentreTile(
+      {required super.tilePosition, required super.isPaused, this.diplomacyCycles = 1, super.startsConstructed})
+      : super(buildingId: AppTiles.educationCentre, sfxLoop: SfxLoop.education);
 
-  @override
-  void update(double dt, GameState state) {
-    super.update(dt, state);
+  int _diplomacyExecuted = 0;
 
-    if (isPaused) return;
+  bool get canExecuteDiplomacy => diplomacyCycles > 0 && _diplomacyExecuted < diplomacyCycles;
 
-    if (!constructed) return;
-    _timeElapsed += dt;
-
-    // TODO: what does the educaiton centre do?
+  void diplomacyExecuted() {
+    _diplomacyExecuted++;
   }
+
+  int get diplomacyExecutedCount => _diplomacyExecuted;
 }

@@ -6,9 +6,10 @@ import 'package:plastic_punk/utils/widgets/outlined_text.dart';
 import 'package:plastic_punk/utils/widgets/size_layout.dart';
 
 class MenuContent extends StatelessWidget {
-  const MenuContent({this.onStartGameTap, super.key});
+  const MenuContent({this.onStartGameTap, this.onContinueGameTap, super.key});
 
   final VoidCallback? onStartGameTap;
+  final VoidCallback? onContinueGameTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,38 +21,60 @@ class MenuContent extends StatelessWidget {
   }
 
   Widget _buildLayout(BuildContext context, Widget? child, SizeLayout size) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        OutlinedText(
-          'PlasticPunk',
-          style: AppFonts.title(size),
-          textColor: AppColors.titleColor,
-          strokeColor: AppColors.titleOutline,
-          strokeWidth: 4,
-        ),
-        SizedBox(
-            height: size == SizeLayout.small
-                ? 20
-                : size == SizeLayout.medium
-                    ? 40
-                    : 60),
-        _buildButton(SizeLayout.small),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FittedBox(
+            fit: BoxFit.contain,
+            child: OutlinedText(
+              'PlasticPunk',
+              style: AppFonts.title(size),
+              textColor: AppColors.titleColor,
+              strokeColor: AppColors.titleOutline,
+              strokeWidth: 4,
+            ),
+          ),
+          SizedBox(
+              height: size == SizeLayout.small
+                  ? 20
+                  : size == SizeLayout.medium
+                      ? 40
+                      : 60),
+          _buildButtons(SizeLayout.small),
+        ],
+      ),
     );
   }
 
-  Widget _buildButton(SizeLayout size) {
-    return FilledButton(
-      style: FilledButton.styleFrom(
-        backgroundColor: AppColors.buttonBackground,
-        foregroundColor: AppColors.buttonForeground,
-        fixedSize: AppSizes.button(size),
-        textStyle: AppFonts.button(size),
-      ),
-      onPressed: onStartGameTap,
-      child: const Text('Start Game'),
+  Widget _buildButtons(SizeLayout size) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        FilledButton(
+          style: FilledButton.styleFrom(
+            backgroundColor: AppColors.buttonBackground,
+            foregroundColor: AppColors.buttonForeground,
+            fixedSize: AppSizes.button(size),
+            textStyle: AppFonts.button(size),
+          ),
+          onPressed: onStartGameTap,
+          child: const Text('Start Game'),
+        ),
+        const SizedBox(height: 16),
+        FilledButton(
+          style: FilledButton.styleFrom(
+            backgroundColor: AppColors.buttonBackground,
+            foregroundColor: AppColors.buttonForeground,
+            fixedSize: AppSizes.button(size),
+            textStyle: AppFonts.button(size),
+          ),
+          onPressed: onContinueGameTap,
+          child: const Text('Continue Game'),
+        ),
+      ],
     );
   }
 }

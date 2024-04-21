@@ -1,17 +1,13 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:collection/collection.dart';
 import 'package:plastic_punk/state/game/components/icon_component.dart';
 import 'package:plastic_punk/state/game/components/progress_component.dart';
 import 'package:plastic_punk/state/game/components/tile_component.dart';
 import 'package:plastic_punk/state/game/components/tile_position.dart';
 import 'package:plastic_punk/state/game/game_state.dart';
-import 'package:plastic_punk/state/game/objects/building_tile.dart';
 import 'package:plastic_punk/state/game/objects/game_object.dart';
-import 'package:plastic_punk/state/game/objects/house_tile.dart';
-import 'package:plastic_punk/state/game/objects/plastics_recycling_tile.dart';
-import 'package:plastic_punk/utils/constants/tiles.dart';
+import 'package:plastic_punk/utils/constants/priorities.dart';
 import 'package:plastic_punk/utils/constants/times.dart';
 
 class DiplomaticMissionTile extends GameObject {
@@ -31,31 +27,10 @@ class DiplomaticMissionTile extends GameObject {
 
     // if the missin duration has passed, remove the mission tile
     if (_timeElapsed > AppTimes.diplomacyDuration) {
+      _timeElapsed = double.negativeInfinity;
       scheduleMicrotask(() {
-        state.remove(this);
-
-        // remove the cleanup tile from the map
-        if (_missionTileObject != null) {
-          state.mapComponent.remove(_missionTileObject!);
-        }
-
-        // remove the enemy building
-        final enemyBuilding = state.objects.whereType<BuildingTile>().firstWhereOrNull(
-              (e) => e.tilePosition == tilePosition,
-            );
-        if (enemyBuilding == null) throw Exception('No enemy building found at $tilePosition');
-        enemyBuilding.remove(state);
-
-        // add the eco building
-        if (enemyBuilding.buildingId == AppTiles.badHousing) {
-          state.add(HouseTile(tilePosition: tilePosition, isPaused: isPaused));
-        } else if (enemyBuilding.buildingId == AppTiles.plasticsFactory) {
-          state.add(PlasticsRecyclingTile(tilePosition: tilePosition, isPaused: isPaused));
-        } else {
-          throw Exception('Unknown building id: ${enemyBuilding.buildingId}');
-        }
+        state.executeDiplomaticMission(tilePosition);
       });
-
       return;
     }
 
@@ -67,14 +42,24 @@ class DiplomaticMissionTile extends GameObject {
 
   @override
   void remove(GameState state) {
-    if (_missionTileObject != null) {
-      state.mapComponent.remove(_missionTileObject!);
-    }
+    scheduleMicrotask(() {
+      state.remove(this);
+      if (_missionTileObject != null) {
+        state.mapComponent.remove(_missionTileObject!);
+      }
+    });
+  }
+
+  double get missionTimeElapsed => _timeElapsed;
+
+  void setMissionTimeElapsed(double value) {
+    _timeElapsed = value;
   }
 }
 
 class DiplomaticMissionTileObject extends TileComponent with Progress, Icon {
-  DiplomaticMissionTileObject(TilePosition tilePosition, GameState state) : super(tilePosition, state) {
+  DiplomaticMissionTileObject(TilePosition tilePosition, GameState state)
+      : super(tilePosition, state, priority: AppRenderPriorities.progress) {
     initializeProgress(state, AppTimes.diplomacyDuration);
     initializeIcon(state, 'app_assets/icons/diplomatic_mission.png', 1.0);
   }

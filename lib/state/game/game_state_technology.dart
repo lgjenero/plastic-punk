@@ -3,10 +3,21 @@
 part of 'game_state.dart';
 
 extension GameStateTechnology on GameState {
+  void _initTechnologies() {
+    for (final technology in _level.existingTechnologies) {
+      addTechnology(technology);
+    }
+  }
+
   void addTechnology(TechnologyType technology) {
     final technologies = {...state.technologies};
     technologies.add(technology);
     state = state.copyWith(technologies: technologies);
+    final node = TechnologyTree.nodes.firstWhereOrNull((e) => e.type == technology);
+    if (node == null) return;
+    for (final resource in node.resourcesProduced) {
+      addResource(resource);
+    }
   }
 
   bool hasTechnology(TechnologyType technology) {
@@ -17,6 +28,11 @@ extension GameStateTechnology on GameState {
     final technologies = {...state.technologies};
     technologies.remove(technology);
     state = state.copyWith(technologies: technologies);
+    final node = TechnologyTree.nodes.firstWhereOrNull((e) => e.type == technology);
+    if (node == null) return;
+    for (final resource in node.resourcesProduced) {
+      removeResource(resource);
+    }
   }
 
   void researchTechnology(TechnologyNode technologyNode) {

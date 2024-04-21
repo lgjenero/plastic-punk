@@ -22,7 +22,18 @@ class AppMath {
     final yMove = y / (tileSize.y / 2);
     final tileX = (xMove + yMove) / 2;
     final tileY = (yMove - xMove) / 2;
-    return TilePosition(tileX.floor(), tileY.floor());
+    return TilePosition(x: tileX.floor(), y: tileY.floor());
+  }
+
+  static Vector2 positionToTileDouble(Vector2 position, Vector2 tileSize, int mapWidth, int mapHeight) {
+    final start = Vector2(mapWidth / 2 * tileSize.x, 0);
+    final x = position.x - start.x;
+    final y = position.y;
+    final xMove = x / (tileSize.x / 2);
+    final yMove = y / (tileSize.y / 2);
+    final tileX = (xMove + yMove) / 2;
+    final tileY = (yMove - xMove) / 2;
+    return Vector2(tileX, tileY);
   }
 
   static Rect getTilePosition(TilePosition position, Vector2 tileSize, int mapWidth, int mapHeight) {
@@ -46,7 +57,7 @@ class AppMath {
         tiles.add(
           TileData(
             layerId: layerId,
-            position: TilePosition(position.x + i, position.y + j),
+            position: TilePosition(x: position.x + i, y: position.y + j),
             data: mapComponent.tileMap.getTileData(layerId: layerId, x: position.x + i, y: position.y + j) ??
                 const Gid(0, Flips.defaults()),
           ),
@@ -57,14 +68,14 @@ class AppMath {
     return tiles;
   }
 
-  static List<TileData> getNeighbouringTile(TilePosition position, int layerId, TiledComponent mapComponent) {
+  static List<TileData> getNeighbouringTiles(TilePosition position, int layerId, TiledComponent mapComponent) {
     final mapWidth = mapComponent.tileMap.map.width;
     final mapHeight = mapComponent.tileMap.map.height;
     final points = [
-      TilePosition(position.x - 1, position.y),
-      TilePosition(position.x + 1, position.y),
-      TilePosition(position.x, position.y - 1),
-      TilePosition(position.x, position.y + 1),
+      TilePosition(x: position.x - 1, y: position.y),
+      TilePosition(x: position.x + 1, y: position.y),
+      TilePosition(x: position.x, y: position.y - 1),
+      TilePosition(x: position.x, y: position.y + 1),
     ];
     final tiles = <TileData>{};
     for (var point in points) {
@@ -95,22 +106,22 @@ class AppMath {
       // top edge
       int topPointX = position.x + i;
       int topPointY = position.y - distance;
-      points.add(TilePosition(topPointX, topPointY));
+      points.add(TilePosition(x: topPointX, y: topPointY));
 
       // bottom edge
       int bottomPointX = position.x + i;
       int bottomPointY = position.y + distance;
-      points.add(TilePosition(bottomPointX, bottomPointY));
+      points.add(TilePosition(x: bottomPointX, y: bottomPointY));
 
       // left edge
       int leftPointX = position.x - distance;
       int leftPointY = position.y + i;
-      points.add(TilePosition(leftPointX, leftPointY));
+      points.add(TilePosition(x: leftPointX, y: leftPointY));
 
       // right edge
       int rightPointX = position.x + distance;
       int rightPointY = position.y + i;
-      points.add(TilePosition(rightPointX, rightPointY));
+      points.add(TilePosition(x: rightPointX, y: rightPointY));
 
       for (var point in points) {
         if (point.x < 0 || point.x >= mapWidth) continue;

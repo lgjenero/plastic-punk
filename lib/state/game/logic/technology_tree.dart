@@ -11,6 +11,7 @@ class TechnologyNode {
   final List<TechnologyType> technologiesRequired;
   final List<Resource> resourcesRequired;
   final List<Resource> resourcesConsumed;
+  final List<Resource> resourcesProduced;
   final Message infoMessage;
 
   TechnologyNode({
@@ -21,6 +22,7 @@ class TechnologyNode {
     required this.technologiesRequired,
     required this.resourcesRequired,
     required this.resourcesConsumed,
+    required this.resourcesProduced,
     required this.infoMessage,
   });
 }
@@ -46,7 +48,8 @@ class TechnologyTree {
       buildingsRequired: [AppTiles.researchCentre],
       technologiesRequired: [],
       resourcesRequired: [],
-      resourcesConsumed: [Resource(type: ResourceType.material, amount: 5)],
+      resourcesConsumed: [const Resource(type: ResourceType.material, amount: 5)],
+      resourcesProduced: [const Resource(type: ResourceType.impact, amount: 10)],
       infoMessage: Messages.plasticsReduceInfoMessage,
     ),
 
@@ -58,7 +61,8 @@ class TechnologyTree {
       buildingsRequired: [AppTiles.researchCentre],
       technologiesRequired: [TechnologyType.plasticsReduce],
       resourcesRequired: [],
-      resourcesConsumed: [Resource(type: ResourceType.material, amount: 5)],
+      resourcesConsumed: [const Resource(type: ResourceType.material, amount: 5)],
+      resourcesProduced: [],
       infoMessage: Messages.plasticsReuseInfoMessage,
     ),
 
@@ -67,10 +71,11 @@ class TechnologyTree {
       type: TechnologyType.plasticsRecycle,
       name: 'Plastics recycling',
       imageAsset: 'assets/images/app_assets/tech/plastics_recycle.png',
-      buildingsRequired: [AppTiles.researchCentre],
+      buildingsRequired: [AppTiles.plasticsEnergy],
       technologiesRequired: [TechnologyType.plasticsReuse],
       resourcesRequired: [],
-      resourcesConsumed: [Resource(type: ResourceType.material, amount: 5)],
+      resourcesConsumed: [const Resource(type: ResourceType.material, amount: 5)],
+      resourcesProduced: [],
       infoMessage: Messages.plasticsRecycleInfoMessage,
     ),
 
@@ -79,10 +84,11 @@ class TechnologyTree {
       type: TechnologyType.waterTreatment,
       name: 'Water treatment',
       imageAsset: 'assets/images/app_assets/tech/water_treatment.png',
-      buildingsRequired: [AppTiles.researchCentre],
+      buildingsRequired: [AppTiles.plasticRecycling],
       technologiesRequired: [TechnologyType.plasticsRecycle],
       resourcesRequired: [],
-      resourcesConsumed: [Resource(type: ResourceType.material, amount: 5)],
+      resourcesConsumed: [const Resource(type: ResourceType.material, amount: 5)],
+      resourcesProduced: [],
       infoMessage: Messages.waterTreatmentTechInfoMessage,
     ),
 
@@ -91,10 +97,11 @@ class TechnologyTree {
       type: TechnologyType.waterCleanup,
       name: 'Water cleanup',
       imageAsset: 'assets/images/app_assets/tech/water_cleanup.png',
-      buildingsRequired: [AppTiles.researchCentre],
+      buildingsRequired: [AppTiles.waterTreatment],
       technologiesRequired: [TechnologyType.waterTreatment],
       resourcesRequired: [],
-      resourcesConsumed: [Resource(type: ResourceType.material, amount: 5)],
+      resourcesConsumed: [const Resource(type: ResourceType.material, amount: 5)],
+      resourcesProduced: [],
       infoMessage: Messages.waterCleanupTechInfoMessage,
     ),
   ];

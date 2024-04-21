@@ -4,6 +4,7 @@ import 'package:plastic_punk/state/game/components/tile_component.dart';
 import 'package:plastic_punk/state/game/components/tile_position.dart';
 import 'package:plastic_punk/state/game/game_state.dart';
 import 'package:plastic_punk/utils/constants/colors.dart';
+import 'package:plastic_punk/utils/constants/priorities.dart';
 
 mixin Progress on TileComponent {
   double timeElapsed = 0;
@@ -51,7 +52,8 @@ mixin Progress on TileComponent {
 }
 
 class ProgressComponent extends TileComponent with Progress {
-  ProgressComponent(TilePosition position, GameState state, double duration) : super(position, state) {
+  ProgressComponent(TilePosition position, GameState state, double duration)
+      : super(position, state, priority: AppRenderPriorities.progress) {
     initializeProgress(state, duration);
   }
 

@@ -1,22 +1,14 @@
-import 'package:plastic_punk/state/game/game_state.dart';
-import 'package:plastic_punk/state/game/objects/building_tile.dart';
+import 'package:plastic_punk/state/game/objects/building_polluting_tile.dart';
+import 'package:plastic_punk/state/game/sfx/sfx.dart';
 import 'package:plastic_punk/utils/constants/tiles.dart';
+import 'package:plastic_punk/utils/constants/times.dart';
 
-class BadHousingTile extends BuildingTile {
+class BadHousingTile extends BuildingPollutingTile {
   BadHousingTile({required super.tilePosition, required super.isPaused, super.startsConstructed = true})
-      : super(buildingId: AppTiles.badHousing);
-
-  double _timeElapsed = 0;
-
-  @override
-  void update(double dt, GameState state) {
-    super.update(dt, state);
-
-    if (isPaused) return;
-
-    if (!constructed) return;
-    _timeElapsed += dt;
-
-    // TODO: what does the bad housing do?
-  }
+      : super(
+          buildingId: AppTiles.badHousing,
+          sfxLoop: SfxLoop.badHousing,
+          pollutingPeriod: () => AppTimes.badHousingProductionTime,
+          pollutesWater: true,
+        );
 }

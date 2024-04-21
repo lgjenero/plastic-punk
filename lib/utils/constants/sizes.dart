@@ -3,6 +3,7 @@ import 'package:plastic_punk/utils/widgets/size_layout.dart';
 
 class AppSizes {
   static Size tile = const Size(64, 40);
+  static Size tileTexture = const Size(256, 160);
 
   static Size splashIcon(SizeLayout size) {
     return Size(
@@ -82,6 +83,33 @@ class AppSizes {
   }
 
   static Size message(SizeLayout size) {
+    return Size(
+      size == SizeLayout.small
+          ? 400
+          : size == SizeLayout.medium
+              ? 500
+              : 600,
+      size == SizeLayout.small
+          ? 300
+          : size == SizeLayout.medium
+              ? 400
+              : 500,
+    );
+  }
+
+  static Size messageBadge(SizeLayout size) {
+    return size == SizeLayout.small
+        ? const Size.square(120)
+        : size == SizeLayout.medium
+            ? const Size.square(160)
+            : const Size.square(200);
+  }
+
+  static Size messageFlag(SizeLayout size) {
+    return const Size(72, 51);
+  }
+
+  static Size buildingInfo(SizeLayout size) {
     return Size(
       size == SizeLayout.small
           ? 400

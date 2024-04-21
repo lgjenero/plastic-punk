@@ -111,6 +111,9 @@
     <tile id="312">
         <image width="256" height="256" source="Tiles/plastics_factory.png" />
     </tile>
+    <tile id="313">
+        <image width="256" height="256" source="Tiles/bad_town_hall.png" />
+    </tile>
     <tile id="398">
         <image width="256" height="256" source="Tiles/building_ground.png" />
     </tile>
@@ -163,6 +166,74 @@
     </tile>
     <tile id="501">
         <image width="256" height="256" source="Tiles/placement_wrong.png" />
+    </tile>
+    <!-- transportation -->
+    <tile id="600">
+        <image width="256" height="256" source="Tiles/transport_1.png" />
+    </tile>
+    <tile id="601">
+        <image width="256" height="256" source="Tiles/transport_2.png" />
+    </tile>
+    <tile id="602">
+        <image width="256" height="256" source="Tiles/transport_3.png" />
+    </tile>
+    <tile id="603">
+        <image width="256" height="256" source="Tiles/transport_4.png" />
+    </tile>
+    <tile id="604">
+        <image width="256" height="256" source="Tiles/transport_5.png" />
+    </tile>
+    <tile id="605">
+        <image width="256" height="256" source="Tiles/transport_6.png" />
+    </tile>
+    <tile id="606">
+        <image width="256" height="256" source="Tiles/transport_7.png" />
+    </tile>
+    <tile id="607">
+        <image width="256" height="256" source="Tiles/transport_8.png" />
+    </tile>
+    <tile id="608">
+        <image width="256" height="256" source="Tiles/transport_9.png" />
+    </tile>
+    <tile id="609">
+        <image width="256" height="256" source="Tiles/transport_10.png" />
+    </tile>
+    <tile id="610">
+        <image width="256" height="256" source="Tiles/transport_11.png" />
+    </tile>
+    <!-- polluted transportation -->
+    <tile id="700">
+        <image width="256" height="256" source="Tiles/polluted_transport_1.png" />
+    </tile>
+    <tile id="701">
+        <image width="256" height="256" source="Tiles/polluted_transport_2.png" />
+    </tile>
+    <tile id="702">
+        <image width="256" height="256" source="Tiles/polluted_transport_3.png" />
+    </tile>
+    <tile id="703">
+        <image width="256" height="256" source="Tiles/polluted_transport_4.png" />
+    </tile>
+    <tile id="704">
+        <image width="256" height="256" source="Tiles/polluted_transport_5.png" />
+    </tile>
+    <tile id="705">
+        <image width="256" height="256" source="Tiles/polluted_transport_6.png" />
+    </tile>
+    <tile id="706">
+        <image width="256" height="256" source="Tiles/polluted_transport_7.png" />
+    </tile>
+    <tile id="707">
+        <image width="256" height="256" source="Tiles/polluted_transport_8.png" />
+    </tile>
+    <tile id="708">
+        <image width="256" height="256" source="Tiles/polluted_transport_9.png" />
+    </tile>
+    <tile id="709">
+        <image width="256" height="256" source="Tiles/polluted_transport_10.png" />
+    </tile>
+    <tile id="710">
+        <image width="256" height="256" source="Tiles/polluted_transport_11.png" />
     </tile>
 
 </tileset>

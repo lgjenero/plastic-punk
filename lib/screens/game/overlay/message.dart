@@ -67,7 +67,7 @@ class MessageOverlay extends ConsumerWidget {
 
   final FlameGame game;
 
-  const MessageOverlay({required this.game, Key? key}) : super(key: key);
+  const MessageOverlay({required this.game, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -84,16 +84,16 @@ class MessageOverlay extends ConsumerWidget {
   Widget _buildContent(BuildContext context, SizeLayout size) {
     return Material(
       type: MaterialType.transparency,
-      child: MesasgeContent(size: size, game: game),
+      child: MessageContent(size: size, game: game),
     );
   }
 }
 
-class MesasgeContent extends ConsumerWidget {
+class MessageContent extends ConsumerWidget {
   final SizeLayout size;
   final FlameGame game;
 
-  const MesasgeContent({required this.size, required this.game, Key? key}) : super(key: key);
+  const MessageContent({required this.size, required this.game, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -153,7 +153,7 @@ class MesasgeContent extends ConsumerWidget {
   }
 
   void _next(Message message, WidgetRef ref) {
-    game.overlays.remove(MessageOverlay.overlayId);
+    ref.read(gameStateProvider.notifier).hideMessage();
     if (message.next != null) {
       ref.read(gameStateProvider.notifier).showMessage(message.next!);
     }

@@ -10,7 +10,7 @@ class TileComponent extends PositionComponent {
   late final Rect _rect;
   Rect get tileRect => _rect;
 
-  TileComponent(this.tilePosition, GameState state) : super() {
+  TileComponent(this.tilePosition, GameState state, {super.priority}) {
     _initialize(state, tilePosition);
     position = Vector2(_rect.left, _rect.top);
     size = Vector2(_rect.width, _rect.height);

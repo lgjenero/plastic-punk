@@ -1,14 +1,18 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:plastic_punk/screens/game/game.dart';
+import 'package:plastic_punk/services/user/user_service.dart';
+import 'package:plastic_punk/state/game/levels/level.dart';
 import 'package:plastic_punk/utils/constants/colors.dart';
 import 'package:plastic_punk/utils/constants/fonts.dart';
 import 'package:plastic_punk/utils/constants/times.dart';
 import 'package:plastic_punk/utils/widgets/size_layout.dart';
 
-class IntroScreen extends StatefulWidget {
-  const IntroScreen({super.key});
+class IntroScreen extends ConsumerStatefulWidget {
+  final Level level;
+  const IntroScreen({super.key, required this.level});
 
   static const List<_IntroSlide> _slides = [
     _IntroSlide(
@@ -29,16 +33,21 @@ class IntroScreen extends StatefulWidget {
   ];
 
   @override
-  State<IntroScreen> createState() => _IntroScreenState();
+  ConsumerState<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _IntroScreenState extends State<IntroScreen> {
+class _IntroScreenState extends ConsumerState<IntroScreen> {
   @override
   void initState() {
     super.initState();
     Future.delayed((3 * AppTimes.introSlideDurationMs).ms, () {
       if (!mounted) return;
       _skip(context);
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ref.read(userServiceProvider.notifier).setIntroShown();
     });
   }
 
@@ -98,7 +107,7 @@ class _IntroScreenState extends State<IntroScreen> {
     Navigator.pushReplacement(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const GameScreen(),
+        pageBuilder: (context, animation, secondaryAnimation) => GameScreen(level: widget.level),
         transitionDuration: const Duration(milliseconds: 500),
         reverseTransitionDuration: const Duration(milliseconds: 500),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {

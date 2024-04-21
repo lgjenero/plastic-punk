@@ -10,7 +10,7 @@ abstract class Messages {
     message:
         'In a world where the once blue and green Earth is now shrouded in shades of gray and white, blanketed by the remnants of our past - plastic. A once marvel of human innovation has become our planet\'s undoing, seeping into our soils, choking our waters, and suffocating our air. But not all hope is lost. You, brave pioneer, have emerged in the midst of despair, bearing the light of change, the promise of a new dawn.',
     links: [],
-    next: buildTownHallMessage,
+    // next: buildTownHallMessage,
   );
 
   static const buildTownHallMessage = Message(
@@ -40,6 +40,19 @@ Onward to a cleaner, brighter future. The blueprint of our Town Hall awaits your
     message:
         'The Town Hall is the heart of your community. It is the center of your operations, politcal  where you can manage your city, view your progress, and make important decisions. It is also the place where you can receive important messages and updates.',
     links: [],
+  );
+
+  static const transportationInfoMessage = Message(
+    title: 'Transportation',
+    message:
+        'Transportation is important to effectively connect your community. Transportation is a major source of pollution and greenhouse gas emissions. <link:1> is essential for reducing the environmental impact of transportation.',
+    links: [
+      MessageLink(
+          id: '1',
+          text: 'Public transportation',
+          url:
+              'https://climate.mit.edu/explainers/public-transportation#:~:text=According%20to%20the%20International%20Energy,passenger%20transit%20modes%2C%202019.%E2%80%9D'),
+    ],
   );
 
   static const gardenInfoMessage = Message(
@@ -161,6 +174,39 @@ Onward to a cleaner, brighter future. The blueprint of our Town Hall awaits your
     ],
   );
 
+  static const badHousingInfoMessage = Message(
+    title: 'Convenional Housing',
+    message:
+        'Conventional Housing produces more pollution and causes more health issues. Also conventional housing does not stimulate reducing the demand for plastics, using sustainable transpotration and other green technologies.',
+  );
+
+  static const plasticsFactoryInfoMessage = Message(
+    title: 'Plastics Factory',
+    message:
+        'Plastics Factory produces plastics and is a major source of pollution. The factory will spread the pollution to the surrounding area. You need to act fast and convice the factory to convert to your technology.',
+  );
+
+  static const roadInfoMessage = Message(
+      title: 'Unsustainable transportation',
+      message:
+          'Using cars as the main transportation method is not sustainable. Cars <link:1> (GHG, noise, chemicals) and <link:2> and streas than public transportation.',
+      links: [
+        MessageLink(
+          id: '1',
+          text: 'produce more pollution',
+          url:
+              'https://climate.mit.edu/explainers/public-transportation#:~:text=Public%20transportation%20gets%20people%20where,large%20city%20may%20carry%20thousands.',
+        ),
+        MessageLink(id: '2', text: 'cause more accidents', url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5906382/')
+      ]);
+
+  static const badTownHallInfoMessage = Message(
+    title: 'Town Hall',
+    message:
+        'The Town Hall is the heart of the community. It is wher the policies are therfore the future of the community is decided.',
+    links: [],
+  );
+
   //
   // technology info messages
   //
@@ -239,6 +285,13 @@ Onward to a cleaner, brighter future. The blueprint of our Town Hall awaits your
     links: [],
   );
 
+  static const badTownHallAlarm = Message(
+    title: 'Plastisc Pollution Alarm!',
+    message:
+        'There is a community nearby that is producing a lot of pollution. The community will spread the pollution to the surrounding area. You need to act fast and convice the community to convert to sustainable technology.',
+    links: [],
+  );
+
   //
   // Info messages
   //
@@ -254,4 +307,86 @@ Onward to a cleaner, brighter future. The blueprint of our Town Hall awaits your
     message: 'Diplomacy is not available at the moment. You need to build an Education Centre first.',
     links: [],
   );
+
+  static const nowhereToBuild = Message(
+    title: 'Cannot build the structure',
+    message:
+        'You cannot build the structure at the moment. There are no available tiles to build on. Plase build some tracks first.',
+    links: [],
+  );
+
+  static const nowhereToHaveDiplomacy = Message(
+    title: 'Diplomacy unavailable',
+    message: 'There is no community to have diplomacy with.',
+    links: [],
+  );
+
+  static const crossRedLineToHaveDiplomacy = Message(
+    title: 'Diplomacy out of reach',
+    message:
+        'Cannot start diplomatic mission with this community. You need to come closer and cross the red line first.',
+    links: [],
+  );
+
+  //
+  // Level messages
+  //
+
+  static const level1Message = Message(
+    title: 'Level 1',
+    message:
+        'Welcome to Level 1. In this level you will learn how to build a town hall and start your journey to clean the world. First you need to build a town hall. You can do that by opening the build menu',
+    links: [],
+  );
+
+  static const level2Message = Message(
+    title: 'Level 2',
+    message:
+        'Welcome to Level 2. In this level you will learn how to build build you community. You will build housing and food production facilities for your community.',
+    links: [],
+  );
+
+  static const level3Message = Message(
+    title: 'Level 3',
+    message:
+        'Welcome to Level 3. In this level you will learn how to research new technologies and innovations. You will build a research centre and start researching new technologies.',
+    links: [],
+  );
+
+  static const level4Message = Message(
+    title: 'Level 4',
+    message:
+        'Welcome to Level 4. In this level you will learn how to recycle plastics. You will research new technologies and build a plastics recycling facility to start recycling plastics.',
+    links: [],
+  );
+
+  static const level5Message = Message(
+    title: 'Level 5',
+    message:
+        'Welcome to Level 5. In this level you will learn how to secure clean drinking water. You will research new technologies and build a water treatment plant to start producing clean drinking water.',
+    links: [],
+  );
+
+  static const level6Message = Message(
+    title: 'Level 6',
+    message:
+        'Welcome to Level 6. In this level you will learn how to produce clean energy and ensure well being of the community. You will build a park and solar panel facility.',
+    links: [],
+  );
+
+  static const level7Message = Message(
+    title: 'Level 7',
+    message:
+        'Welcome to Level 7. In this level you will learn how to clean up water bodies. You will research new technologies and build a water cleanup facility to start cleaning up our oceans.',
+    links: [],
+  );
+
+  static const level8Message = Message(
+    title: 'Level 8',
+    message:
+        'Welcome to Level 8. In this level you will learn how to educate the community and spread the mission. If you do not bring other communites together we will never solve the pollution problem. Just be careful when crossing that red line, be prepared to intensify your cleaning efforts.',
+    links: [],
+  );
+
+  static const level9Message = welcomeMessage;
 }

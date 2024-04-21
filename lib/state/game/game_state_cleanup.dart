@@ -14,18 +14,21 @@ extension GameStateCleanup on GameState {
       x: tilePosition.x.toInt(),
       y: tilePosition.y.toInt(),
     );
-
     if (tile == null) return false;
 
     // cleanup tile?
     if (state.tilesToClean.contains(tilePosition)) {
       state = state.copyWith(tilesToClean: {...state.tilesToClean}..remove(tilePosition));
       final toCleanObject =
-          state.objects.whereType<CleanupTile>().firstWhereOrNull((e) => e.tilePosition == tilePosition);
+          state.objects.whereType<SelectedTile>().firstWhereOrNull((e) => e.tilePosition == tilePosition);
       toCleanObject?.remove(this);
 
       return false;
     }
+
+    // in process tile?
+    final inProcess = state.objects.whereType<CleanupTile>().any((e) => e.tilePosition == tilePosition);
+    if (inProcess) return false;
 
     final tryGround = _tryGroundCleanup(tilePosition, tile.tile);
     if (tryGround) return true;
@@ -36,31 +39,21 @@ extension GameStateCleanup on GameState {
     return false;
   }
 
+  bool _canCleanGround() {
+    final hasCapability = objects.whereType<BuildingCleaningTile>().any((e) => e.constructed && !e.cleansWater);
+    return hasCapability;
+  }
+
+  bool _canCleanWater() {
+    final hasCapability = objects.whereType<BuildingCleaningTile>().any((e) => e.constructed && e.cleansWater);
+    return hasCapability;
+  }
+
   bool _tryGroundCleanup(TilePosition tilePos, int tileId) {
     final isGroundPolluted = AppTiles.groundPollutedTiles.contains(tileId);
     if (!isGroundPolluted) return false;
 
-    final hasCapability =
-        objects.whereType<BuildingTile>().any((e) => (e is TownHallTile || e is PlasticsEnergyTile) && e.constructed);
-    if (!hasCapability) return false;
-
-    final neighbours = AppMath.getNeighbouringTile(
-      tilePos,
-      AppLayers.terrain,
-      mapComponent,
-    );
-
-    final canBeReached = neighbours.any(
-      (neighbour) {
-        return AppTiles.grassTiles.contains(neighbour.data.tile) ||
-            AppTiles.forestTiles.contains(neighbour.data.tile) ||
-            AppTiles.buildingTiles.contains(neighbour.data.tile);
-      },
-    );
-
-    if (!canBeReached) return false;
-
-    state = state.copyWith(tilesToClean: state.tilesToClean..add(tilePos));
+    if (!_canCleanGround()) return false;
 
     add(SelectedTile(type: SelectedTileType.toBeCleaned, tilePosition: tilePos, isPaused: false));
     state = state.copyWith(tilesToClean: {...state.tilesToClean, tilePos});
@@ -71,42 +64,51 @@ extension GameStateCleanup on GameState {
     final isWaterPolluted = AppTiles.waterPollutedTiles.contains(tileId);
     if (!isWaterPolluted) return false;
 
-    final hasCapability = objects.whereType<BuildingTile>().any((e) => (e is WaterCleanupTile) && e.constructed);
-    if (!hasCapability) return false;
+    if (!_canCleanWater()) return false;
 
-    final neighbours = AppMath.getNeighbouringTile(
-      tilePos,
-      AppLayers.terrain,
-      mapComponent,
-    );
-
-    final canBeReached = neighbours.any(
-      (neighbour) {
-        return AppTiles.grassShoreTiles.contains(neighbour.data.tile) ||
-            AppTiles.buildingTiles.contains(neighbour.data.tile) ||
-            AppTiles.waterTiles.contains(neighbour.data.tile);
-      },
-    );
-
-    if (!canBeReached) return false;
-
-    state = state.copyWith(tilesToClean: state.tilesToClean..add(tilePos));
+    state = state.copyWith(tilesToClean: {...state.tilesToClean, tilePos});
     add(SelectedTile(type: SelectedTileType.toBeCleaned, tilePosition: tilePos, isPaused: false));
     return true;
   }
 
   TilePosition? getTileToClean(bool waterTiles) {
-    final tilesToClean = state.tilesToClean;
+    final tilesToClean = {...state.tilesToClean};
     for (final tile in tilesToClean) {
       final tileData = _mapComponent.tileMap.getTileData(layerId: AppLayers.template, x: tile.x, y: tile.y);
       if (tileData == null) continue;
 
       if (waterTiles) {
         if (AppTiles.waterTiles.contains(tileData.tile)) {
+          // can it be reached
+          final neighbours = AppMath.getNeighbouringTiles(
+            tile,
+            AppLayers.terrain,
+            _mapComponent,
+          );
+          final reachable = neighbours.any((neighbour) =>
+              AppTiles.waterTiles.contains(neighbour.data.tile) ||
+              AppTiles.playerBuildingTiles.contains(neighbour.data.tile));
+          if (!reachable) continue;
+
+          tilesToClean.remove(tile);
+          state = state.copyWith(tilesToClean: tilesToClean);
           return tile;
         }
       } else {
         if (AppTiles.grassTiles.contains(tileData.tile) || AppTiles.forestTiles.contains(tileData.tile)) {
+          // can it be reached
+          final neighbours = AppMath.getNeighbouringTiles(
+            tile,
+            AppLayers.terrain,
+            _mapComponent,
+          );
+          final reachable = neighbours.any((neighbour) =>
+              AppTiles.groundTiles.contains(neighbour.data.tile) ||
+              AppTiles.playerBuildingTiles.contains(neighbour.data.tile));
+          if (!reachable) continue;
+
+          tilesToClean.remove(tile);
+          state = state.copyWith(tilesToClean: tilesToClean);
           return tile;
         }
       }
@@ -115,7 +117,7 @@ extension GameStateCleanup on GameState {
     return null;
   }
 
-  void cleanTile(TilePosition tile) {
+  void cleanTile(TilePosition tile, {Resource? resourceProduced}) {
     final tileData = _mapComponent.tileMap.getTileData(layerId: AppLayers.terrain, x: tile.x, y: tile.y);
     if (tileData == null) return;
 
@@ -124,7 +126,7 @@ extension GameStateCleanup on GameState {
     toCleanObject?.remove(this);
 
     if (AppTiles.waterPollutedTiles.contains(tileData.tile) || AppTiles.groundPollutedTiles.contains(tileData.tile)) {
-      add(CleanupTile(tilePosition: tile, isPaused: false));
+      add(CleanupTile(tilePosition: tile, isPaused: false, resourcesProduced: resourceProduced));
     }
   }
 }

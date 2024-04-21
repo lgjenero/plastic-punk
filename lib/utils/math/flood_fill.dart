@@ -77,4 +77,20 @@ class FloodFiller {
       _visited[position.x][position.y] = true;
     }
   }
+
+  Set<TilePosition> getFilledArea(TilePosition start) {
+    final area = <TilePosition>{};
+
+    _addStep(start);
+    while (_steps.isNotEmpty) {
+      final step = _steps.removeFirst();
+
+      if (_isFilled(step)) {
+        area.add(step);
+        _addNighbours(step);
+      }
+    }
+
+    return area;
+  }
 }

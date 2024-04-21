@@ -1,23 +1,38 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:plastic_punk/screens/menu/menu.dart';
+import 'package:plastic_punk/services/user/user_service.dart';
+import 'package:plastic_punk/utils/constants/colors.dart';
+import 'package:plastic_punk/utils/constants/fonts.dart';
 import 'package:plastic_punk/utils/constants/sizes.dart';
 import 'package:plastic_punk/utils/widgets/size_layout.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
+  final _userLoaded = Completer<void>();
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      if (!mounted) return;
-      _menu();
-    });
+    ref.listenManual(
+      userServiceProvider.select((e) => e.loaded),
+      (_, loaded) {
+        if (loaded && !_userLoaded.isCompleted) {
+          _userLoaded.complete();
+          if (!kIsWeb) _menu();
+        }
+      },
+      fireImmediately: true,
+    );
   }
 
   @override
@@ -32,16 +47,42 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Widget _buildLayout(BuildContext context, Widget? child, SizeLayout size) {
-    return Center(
-      child: Image.asset(
-        'assets/images/app_assets/icon.png',
-        width: AppSizes.splashIcon(size).width,
-        height: AppSizes.splashIcon(size).height,
-      ),
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Center(
+            child: Image.asset(
+              'assets/images/app_assets/icon.png',
+              width: AppSizes.splashIcon(size).width,
+              height: AppSizes.splashIcon(size).height,
+            ),
+          ),
+        ),
+        if (kIsWeb)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 24,
+            child: Center(
+              child: FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppColors.splashButtonBackground,
+                  foregroundColor: AppColors.splashButtonForeground,
+                  textStyle: AppFonts.button(size),
+                ),
+                onPressed: _menu,
+                child: const Text('Enter'),
+              ),
+            ),
+          ),
+      ],
     );
   }
 
-  void _menu() {
+  void _menu() async {
+    await _userLoaded.future;
+    if (!mounted) return;
+
     Navigator.pushAndRemoveUntil(
       context,
       PageRouteBuilder(

@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="isometric" renderorder="right-down" width="30" height="30" tilewidth="256" tileheight="160" infinite="0" nextlayerid="7" nextobjectid="71">
+ <tileset firstgid="1" source="map_tiles.tsx"/>
+ <layer id="1" name="Template" width="30" height="30" visible="0" locked="1">
+  <data encoding="csv">
+202,202,14,15,102,103,101,103,101,102,101,102,103,102,101,102,101,101,103,102,101,102,103,3,4,2,5,5,3,4,
+202,202,202,10,102,102,102,101,102,102,101,102,101,103,103,103,103,101,101,102,101,101,103,103,3,4,4,5,4,4,
+202,202,202,10,102,103,2,2,5,2,102,102,102,101,103,101,101,101,103,103,101,102,102,103,103,102,2,5,3,4,
+202,202,202,10,103,103,5,5,4,3,2,103,102,102,101,101,102,101,102,102,102,102,103,101,101,101,9,7,7,7,
+202,202,202,10,103,102,4,4,4,3,5,5,3,4,103,103,101,101,103,101,101,103,101,101,103,102,6,202,202,202,
+202,202,202,10,101,102,101,102,4,4,3,5,5,3,4,2,103,103,101,101,101,103,101,101,101,103,6,202,202,202,
+202,202,202,14,15,102,102,103,101,103,2,2,2,2,5,5,3,101,102,103,101,101,103,103,103,102,6,202,202,202,
+202,202,202,202,10,101,102,101,103,101,2,5,4,2,3,5,2,4,101,103,101,103,101,103,101,101,6,202,202,202,
+202,202,202,202,10,101,102,102,103,101,103,3,5,4,4,2,3,2,5,101,102,103,102,102,103,103,17,16,202,202,
+202,202,202,202,14,15,102,103,103,103,103,103,5,3,2,2,2,4,3,102,101,103,102,102,102,103,102,6,202,202,
+202,202,202,202,202,10,102,102,103,102,103,101,101,101,101,3,3,5,2,4,101,101,101,101,102,102,101,6,202,202,
+202,202,202,202,202,14,15,103,103,101,102,101,101,101,102,103,4,2,3,5,3,102,102,102,102,102,103,6,202,202,
+202,202,202,202,202,202,14,15,102,102,103,103,103,102,102,103,103,101,3,5,4,101,103,103,102,102,101,17,16,202,
+202,202,202,202,202,202,202,10,103,101,103,102,102,102,101,103,102,102,102,103,103,102,101,102,103,103,101,9,8,202,
+202,202,202,202,202,202,202,10,102,101,103,102,101,103,102,103,103,101,101,103,101,101,102,103,102,103,9,8,202,202,
+202,202,202,202,202,202,202,10,101,102,102,101,102,101,102,103,102,103,103,103,102,102,103,102,103,9,8,202,202,202,
+202,202,202,202,202,202,202,10,103,101,103,101,102,101,101,102,102,101,102,102,101,101,103,102,101,6,202,202,202,202,
+202,202,202,202,202,202,12,13,103,103,103,4,4,5,2,102,101,101,101,102,103,103,101,102,102,6,202,202,202,202,
+202,202,202,12,11,11,13,102,103,102,101,4,2,4,5,4,2,103,101,103,101,101,102,101,9,8,202,202,202,202,
+11,11,11,13,3,3,2,4,2,2,3,5,4,2,5,4,2,2,103,103,103,102,103,9,8,202,202,202,202,202,
+5,2,4,2,2,2,3,2,4,5,3,4,2,3,2,5,5,4,3,102,101,102,9,8,202,202,202,202,202,202,
+4,2,4,5,4,3,4,4,3,2,4,102,101,101,4,4,2,2,4,103,102,103,6,202,202,202,202,202,202,202,
+2,4,5,3,5,3,4,2,101,102,102,102,102,102,102,3,4,5,5,102,101,103,6,202,202,202,202,202,202,202,
+5,5,5,2,5,5,103,101,101,101,103,101,102,101,103,101,5,2,3,101,102,9,8,202,202,202,202,202,202,202,
+3,3,5,3,3,5,103,101,102,102,102,103,102,101,101,103,4,3,3,5,3,6,202,202,202,202,202,202,202,202,
+4,4,3,3,102,102,101,102,101,101,103,101,101,102,102,102,102,3,3,5,3,6,202,202,202,202,202,202,202,202,
+102,101,101,103,102,102,101,103,103,102,101,103,101,101,103,103,101,4,4,2,3,6,202,202,202,202,202,202,202,202,
+103,102,101,103,102,101,101,103,101,103,103,102,102,101,103,102,103,4,2,5,3,6,202,202,202,202,202,202,202,202,
+101,101,103,102,101,103,102,103,103,102,102,102,103,101,102,103,101,103,4,2,4,17,16,202,202,202,202,202,202,202,
+103,103,101,101,103,103,101,102,101,103,103,101,102,103,103,102,102,102,101,2,2,4,6,202,202,202,202,202,202,202
+</data>
+ </layer>
+ <layer id="2" name="Terrain" width="30" height="30" locked="1">
+  <data encoding="csv">
+404,404,414,415,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,
+404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,
+404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,
+404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,409,407,407,407,
+404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,
+404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,
+404,404,404,414,415,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,
+404,404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,
+404,404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,417,416,404,404,
+404,404,404,404,414,415,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,
+404,404,404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,
+404,404,404,404,404,414,415,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,
+404,404,404,404,404,404,414,415,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,417,416,404,
+404,404,404,404,404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,409,408,404,
+404,404,404,404,404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,409,408,404,404,
+404,404,404,404,404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,409,408,404,404,404,
+404,404,404,404,404,404,404,410,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,404,
+404,404,404,404,404,404,412,413,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,404,
+404,404,404,412,411,411,413,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,409,408,404,404,404,404,
+411,411,411,413,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,409,408,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,409,408,404,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,409,408,404,404,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,417,416,404,404,404,404,404,404,404,
+401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,401,406,404,404,404,404,404,404,404
+</data>
+ </layer>
+ <layer id="4" name="Overlay" width="30" height="30" locked="1" opacity="0.6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="6" name="Objects" locked="1">
+  <object id="1" name="Start" x="4715.98" y="75.7129">
+   <properties>
+    <property name="tileX" type="float" value="29"/>
+    <property name="tileY" type="float" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="2" name="EnemyHouse" type="Building" x="100.996" y="4564.87">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="0"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="3" name="EnemyHouse" type="Building" x="414.194" y="4588.73">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="2"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="4" name="EnemyHouse" type="Building" x="94.7523" y="4411.33">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="0"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="5" name="PlasticsFactory" type="Building" x="97.0935" y="4259.26">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="0"/>
+    <property name="tileY" type="float" value="26"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="6" name="PlasticsFactory" type="Building" x="406.626" y="4270.2">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="2"/>
+    <property name="tileY" type="float" value="26"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="12" name="EnemyHouse" type="Building" x="578.583" y="4740.47">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="3"/>
+    <property name="tileY" type="float" value="29"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="13" name="TownHall" type="Building" x="251.276" y="4745.06">
+   <properties>
+    <property name="buildingId" type="int" value="314"/>
+    <property name="tileX" type="float" value="1"/>
+    <property name="tileY" type="float" value="29"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="14" name="Road" type="Building" x="243.758" y="4570.68">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="1"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="15" name="Road" type="Building" x="245.225" y="4410.78">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="1"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="16" name="Road" type="Building" x="245.409" y="4255.1">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="1"/>
+    <property name="tileY" type="float" value="26"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="17" name="Road" type="Building" x="418.872" y="4424.9">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="2"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="18" name="Road" type="Building" x="574.916" y="4421.42">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="3"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="19" name="Road" type="Building" x="716.29" y="4417.93">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="4"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="20" name="Road" type="Building" x="729.126" y="4581.13">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="4"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="21" name="Road" type="Building" x="734.117" y="4744.71">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="4"/>
+    <property name="tileY" type="float" value="29"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="22" name="EnemyHouse" type="Building" x="561.163" y="4567.19">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="3"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="23" name="PlasticsFactory" type="Building" x="95.3044" y="4080.49">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="0"/>
+    <property name="tileY" type="float" value="25"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="24" name="EnemyHouse" type="Building" x="2833.6" y="4269.76">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="17"/>
+    <property name="tileY" type="float" value="26"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="25" name="EnemyHouse" type="Building" x="2657.61" y="4571.5">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="16"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="26" name="EnemyHouse" type="Building" x="2650.69" y="4261.56">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="16"/>
+    <property name="tileY" type="float" value="26"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="27" name="PlasticsFactory" type="Building" x="3298.96" y="4260.72">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="20"/>
+    <property name="tileY" type="float" value="26"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="28" name="PlasticsFactory" type="Building" x="3300.67" y="4110.34">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="20"/>
+    <property name="tileY" type="float" value="25"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="30" name="TownHall" type="Building" x="3137.62" y="4745.45">
+   <properties>
+    <property name="buildingId" type="int" value="314"/>
+    <property name="tileX" type="float" value="19"/>
+    <property name="tileY" type="float" value="29"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="31" name="Road" type="Building" x="3133.1" y="4584.54">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="19"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="32" name="Road" type="Building" x="2830.71" y="4410.93">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="17"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="33" name="Road" type="Building" x="3145.09" y="4266.98">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="19"/>
+    <property name="tileY" type="float" value="26"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="34" name="Road" type="Building" x="2980.69" y="4432.26">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="18"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="35" name="Road" type="Building" x="3154.23" y="4427.75">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="19"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="39" name="EnemyHouse" type="Building" x="2969.17" y="4566.34">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="18"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="41" name="EnemyHouse" type="Building" x="734.128" y="228.683">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="4"/>
+    <property name="tileY" type="float" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="42" name="EnemyHouse" type="Building" x="1046.64" y="573.776">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="6"/>
+    <property name="tileY" type="float" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="43" name="EnemyHouse" type="Building" x="727.2" y="396.376">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="4"/>
+    <property name="tileY" type="float" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="44" name="PlasticsFactory" type="Building" x="729.027" y="557.148">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="4"/>
+    <property name="tileY" type="float" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="45" name="PlasticsFactory" type="Building" x="737.19" y="718.773">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="4"/>
+    <property name="tileY" type="float" value="4"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="46" name="EnemyHouse" type="Building" x="1061.54" y="255.824">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="6"/>
+    <property name="tileY" type="float" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="47" name="TownHall" type="Building" x="891.6" y="83.8729">
+   <properties>
+    <property name="buildingId" type="int" value="314"/>
+    <property name="tileX" type="float" value="5"/>
+    <property name="tileY" type="float" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="48" name="Road" type="Building" x="876.205" y="555.726">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="5"/>
+    <property name="tileY" type="float" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="49" name="Road" type="Building" x="877.672" y="395.826">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="5"/>
+    <property name="tileY" type="float" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="50" name="Road" type="Building" x="877.856" y="240.146">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="5"/>
+    <property name="tileY" type="float" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="51" name="Road" type="Building" x="1051.32" y="409.946">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="6"/>
+    <property name="tileY" type="float" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="54" name="Road" type="Building" x="892.395" y="870.97">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="5"/>
+    <property name="tileY" type="float" value="5"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="55" name="Road" type="Building" x="884.044" y="727.377">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="5"/>
+    <property name="tileY" type="float" value="4"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="57" name="PlasticsFactory" type="Building" x="732.161" y="877.313">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="4"/>
+    <property name="tileY" type="float" value="5"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="58" name="Road" type="Building" x="3139.42" y="4103.52">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="19"/>
+    <property name="tileY" type="float" value="25"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="59" name="PlasticsFactory" type="Building" x="3303.92" y="4421.18">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="20"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="61" name="EnemyHouse" type="Building" x="2988.09" y="4260.18">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="18"/>
+    <property name="tileY" type="float" value="26"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="62" name="PlasticsFactory" type="Building" x="3299.55" y="4584.01">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="20"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="63" name="Road" type="Building" x="2662.1" y="4411.65">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="16"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="64" name="EnemyHouse" type="Building" x="2813.94" y="4566.23">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="17"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="65" name="PlasticsFactory" type="Building" x="579.864" y="4252.7">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="3"/>
+    <property name="tileY" type="float" value="26"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="66" name="EnemyHouse" type="Building" x="881.9" y="4729.83">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="5"/>
+    <property name="tileY" type="float" value="29"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="67" name="EnemyHouse" type="Building" x="890.654" y="4410.29">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="5"/>
+    <property name="tileY" type="float" value="27"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="68" name="EnemyHouse" type="Building" x="890.928" y="4550.09">
+   <properties>
+    <property name="buildingId" type="int" value="312"/>
+    <property name="tileX" type="float" value="5"/>
+    <property name="tileY" type="float" value="28"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="69" name="PlasticsFactory" type="Building" x="388.083" y="4085.54">
+   <properties>
+    <property name="buildingId" type="int" value="313"/>
+    <property name="tileX" type="float" value="2"/>
+    <property name="tileY" type="float" value="25"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="70" name="Road" type="Building" x="242.263" y="4095.67">
+   <properties>
+    <property name="buildingId" type="int" value="701"/>
+    <property name="tileX" type="float" value="1"/>
+    <property name="tileY" type="float" value="25"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+</map>

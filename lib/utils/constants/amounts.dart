@@ -24,10 +24,14 @@ class AppAmmounts {
   // plastics burning
   static const int plasticsBurningElectricityAmount = 40;
   static const int plasticsBurningCleanupTileSpawnCount = 1;
+  static const int plasticsBurningImpactAmount = -20;
 
   // solar panels
   static const int solarPanelsElectricityAmount = 40;
 
   // plastics factory
   static const int plasticsFactoryAlarmDistance = 15;
+
+  // bad town hall
+  static const int badTownHallAlarmDistance = 5;
 }

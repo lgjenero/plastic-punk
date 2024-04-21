@@ -21,17 +21,21 @@ class OutlinedText extends StatelessWidget {
   /// Outline stroke width
   final double strokeWidth;
 
+  /// Text alignment
+  final TextAlign? textAlign;
+
   /// Places a stroke around text to make it appear outlined
   ///
   /// Adapted from https://stackoverflow.com/a/55559435/11846040
   const OutlinedText(
     this.text, {
-    Key? key,
+    super.key,
     this.style = const TextStyle(),
     required this.textColor,
     required this.strokeColor,
     required this.strokeWidth,
-  }) : super(key: key);
+    this.textAlign,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +44,7 @@ class OutlinedText extends StatelessWidget {
         Text(
           text,
           style: style.copyWith(foreground: Paint()..color = textColor),
+          textAlign: textAlign,
         ),
         Text(
           text,
@@ -49,6 +54,7 @@ class OutlinedText extends StatelessWidget {
               ..color = strokeColor
               ..style = PaintingStyle.stroke,
           ),
+          textAlign: textAlign,
         ),
       ],
     );

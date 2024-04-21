@@ -15,4 +15,10 @@ extension GameStateSettings on GameState {
   }
 
   bool get useAutomaticCleanup => state.useAutomaticCleanup;
+
+  void updateGameSpeedMultiplier(double speedMultiplier) {
+    AppTimes.gameSpeedMultiplier = speedMultiplier;
+  }
+
+  double get gameSpeedMultiplier => AppTimes.gameSpeedMultiplier;
 }
