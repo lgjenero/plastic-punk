@@ -226,7 +226,7 @@ abstract class Levels {
     ),
     Level(
       level: 9,
-      name: 'The final challenge',
+      name: 'One planet one future',
       description: 'The final challenge to save the world.',
       map: 'level_9.tmx',
       introMessage: Messages.level9Message,

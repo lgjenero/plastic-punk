@@ -8,7 +8,7 @@ abstract class Messages {
   static const welcomeMessage = Message(
     title: 'Welcome to Plastic Punk!',
     message:
-        'In a world where the once blue and green Earth is now shrouded in shades of gray and white, blanketed by the remnants of our past - plastic. A once marvel of human innovation has become our planet\'s undoing, seeping into our soils, choking our waters, and suffocating our air. But not all hope is lost. You, brave pioneer, have emerged in the midst of despair, bearing the light of change, the promise of a new dawn.',
+        'In a world where the once blue and green Earth is now shrouded in shades of gray and white, blanketed by the remnants of our past - plastic. A once marvel of human innovation has become our planet\'s undoing, seeping into our soils, choking our waters, and suffocating our air. But not all hope is lost. You, brave pioneer, have emerged in the midst of despair, bearing the light of change, the promise of a new dawn. In this endeavor, every hand, every mind, and every soul is vital.',
     links: [],
     // next: buildTownHallMessage,
   );

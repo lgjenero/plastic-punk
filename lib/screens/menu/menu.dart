@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:plastic_punk/screens/game/game.dart';
@@ -8,6 +9,7 @@ import 'package:plastic_punk/screens/menu/widgets/menu_content.dart';
 import 'package:plastic_punk/screens/menu/widgets/profile_button.dart';
 import 'package:plastic_punk/services/user/user_service.dart';
 import 'package:plastic_punk/state/game/levels/level.dart';
+import 'package:plastic_punk/state/game/levels/levels.dart';
 import 'package:plastic_punk/utils/widgets/size_layout.dart';
 
 class MenuScreen extends ConsumerStatefulWidget {
@@ -19,9 +21,54 @@ class MenuScreen extends ConsumerStatefulWidget {
 
 class _MenuScreenState extends ConsumerState<MenuScreen> {
   bool _showLevels = false;
+  AudioPlayer? _audioPlayer;
+  bool _playMusic = false;
+  bool _showIntro = false;
+  Level? _selectedLevel;
+  String? _selectedSlot;
+
+  @override
+  void initState() {
+    super.initState();
+    FlameAudio.loopLongAudio('intro.mp3', volume: 0.2).then((player) {
+      if (!mounted) {
+        player.stop();
+        return;
+      }
+      _audioPlayer = player;
+      if (_playMusic) {
+        _audioPlayer?.resume();
+      } else {
+        _audioPlayer?.pause();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final shouldPlayMusic = ModalRoute.of(context)?.isCurrent == true;
+    if (shouldPlayMusic != _playMusic) {
+      _playMusic = shouldPlayMusic;
+      if (_playMusic) {
+        _audioPlayer?.resume();
+      } else {
+        _audioPlayer?.pause();
+      }
+    }
+
+    if (_showIntro) {
+      return IntroScreen(onSkip: () {
+        final level = _selectedLevel ?? Levels.levels.first;
+        _start(context, level: level, slot: _selectedSlot);
+      });
+    }
+
     return Scaffold(
         body: Stack(
       children: [
@@ -52,14 +99,22 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
   void _start(BuildContext context, {required Level level, String? slot}) {
     final introShown = ref.read(userServiceProvider).userData.introShown;
 
+    if (!introShown) {
+      setState(() {
+        _selectedLevel = level;
+        _selectedSlot = slot;
+        _showIntro = true;
+      });
+      return;
+    }
+
+    _selectedLevel = null;
+    _selectedSlot = null;
+
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => slot != null
-            ? GameScreen(loadSlot: slot, level: level)
-            : introShown
-                ? GameScreen(level: level)
-                : IntroScreen(level: level),
+        pageBuilder: (context, animation, secondaryAnimation) => GameScreen(loadSlot: slot, level: level),
         transitionDuration: const Duration(milliseconds: 500),
         reverseTransitionDuration: const Duration(milliseconds: 500),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -74,7 +129,7 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
           );
         },
       ),
-    );
+    ).then((value) => _showIntro = false);
   }
 
   void _continue(BuildContext context) {

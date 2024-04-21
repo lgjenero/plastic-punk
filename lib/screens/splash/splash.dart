@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,6 +20,7 @@ class SplashScreen extends ConsumerStatefulWidget {
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
   final _userLoaded = Completer<void>();
+  final _musicLoaded = Completer<void>();
 
   @override
   void initState() {
@@ -28,11 +30,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       (_, loaded) {
         if (loaded && !_userLoaded.isCompleted) {
           _userLoaded.complete();
-          if (!kIsWeb) _menu();
         }
       },
       fireImmediately: true,
     );
+
+    FlameAudio.audioCache.load('intro.mp3').then((value) => _musicLoaded.complete());
+
+    if (!kIsWeb) _menu();
   }
 
   @override
@@ -81,6 +86,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   void _menu() async {
     await _userLoaded.future;
+    if (!mounted) return;
+    await _musicLoaded.future;
     if (!mounted) return;
 
     Navigator.pushAndRemoveUntil(

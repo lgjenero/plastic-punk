@@ -71,7 +71,7 @@ class AchievementTree {
     ),
     AchievementNode(
       id: '9',
-      name: 'Clean the workd',
+      name: 'Clean the world',
       imagePath: 'assets/images/app_assets/achievements/finish.png',
       description:
           'We need to work together to clean up the enviroment. We need to take action now to protect the enviroment for future generations.',

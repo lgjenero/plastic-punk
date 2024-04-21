@@ -2,17 +2,16 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:plastic_punk/screens/game/game.dart';
 import 'package:plastic_punk/services/user/user_service.dart';
-import 'package:plastic_punk/state/game/levels/level.dart';
 import 'package:plastic_punk/utils/constants/colors.dart';
 import 'package:plastic_punk/utils/constants/fonts.dart';
 import 'package:plastic_punk/utils/constants/times.dart';
 import 'package:plastic_punk/utils/widgets/size_layout.dart';
 
 class IntroScreen extends ConsumerStatefulWidget {
-  final Level level;
-  const IntroScreen({super.key, required this.level});
+  // final Level level;
+  final VoidCallback? onSkip;
+  const IntroScreen({super.key, /*required this.level,*/ this.onSkip});
 
   static const List<_IntroSlide> _slides = [
     _IntroSlide(
@@ -104,25 +103,26 @@ class _IntroScreenState extends ConsumerState<IntroScreen> {
   }
 
   void _skip(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => GameScreen(level: widget.level),
-        transitionDuration: const Duration(milliseconds: 500),
-        reverseTransitionDuration: const Duration(milliseconds: 500),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = 0.0;
-          const end = 1.0;
-          const curve = Curves.ease;
-          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-          var fadeAnimation = animation.drive(tween);
-          return FadeTransition(
-            opacity: fadeAnimation,
-            child: child,
-          );
-        },
-      ),
-    );
+    widget.onSkip?.call();
+    //   Navigator.pushReplacement(
+    //     context,
+    //     PageRouteBuilder(
+    //       pageBuilder: (context, animation, secondaryAnimation) => GameScreen(level: widget.level),
+    //       transitionDuration: const Duration(milliseconds: 500),
+    //       reverseTransitionDuration: const Duration(milliseconds: 500),
+    //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //         const begin = 0.0;
+    //         const end = 1.0;
+    //         const curve = Curves.ease;
+    //         var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+    //         var fadeAnimation = animation.drive(tween);
+    //         return FadeTransition(
+    //           opacity: fadeAnimation,
+    //           child: child,
+    //         );
+    //       },
+    //     ),
+    //   );
   }
 }
 
