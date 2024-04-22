@@ -9,6 +9,7 @@ import 'package:plastic_punk/state/game/components/tile_position.dart';
 import 'package:plastic_punk/state/game/game_state.dart';
 import 'package:plastic_punk/state/game/messages/messages.dart';
 import 'package:plastic_punk/state/game/objects/building_polluting_tile.dart';
+import 'package:plastic_punk/state/game/objects/car.dart';
 import 'package:plastic_punk/state/game/objects/cleanup_tile.dart';
 import 'package:plastic_punk/state/game/sfx/sfx.dart';
 import 'package:plastic_punk/utils/constants/amounts.dart';
@@ -31,6 +32,11 @@ class BadTownHall extends BuildingPollutingTile {
   List<BadTownHallBorderTileObject>? _borderTiles;
   bool _alarmSounded = false;
 
+  Car? _leftCar;
+  Car? _rightCar;
+  Car? _upCar;
+  Car? _downnCar;
+
   @override
   void update(double dt, GameState state) {
     super.update(dt, state);
@@ -42,11 +48,14 @@ class BadTownHall extends BuildingPollutingTile {
     if (_borderTiles == null) {
       _setupBorderTiles(state);
     }
+
+    _checkCars(state);
   }
 
   @override
   void remove(GameState state) {
     _removeBorderTiles(state);
+    _removeCars(state);
     super.remove(state);
   }
 
@@ -108,6 +117,76 @@ class BadTownHall extends BuildingPollutingTile {
 
       state.showMessage(Messages.badTownHallAlarm);
     });
+  }
+
+  void _checkCars(GameState state) {
+    final neightbours = AppMath.getNeighbouringTiles(tilePosition, AppLayers.terrain, state.mapComponent);
+    final leftCar = neightbours.firstWhereOrNull(
+            (e) => e.position == tilePosition.left && AppTiles.pollutedTransportationTiles.contains(e.data.tile)) !=
+        null;
+    final rightCar = neightbours.firstWhereOrNull(
+            (e) => e.position == tilePosition.right && AppTiles.pollutedTransportationTiles.contains(e.data.tile)) !=
+        null;
+    final upCar = neightbours.firstWhereOrNull(
+            (e) => e.position == tilePosition.up && AppTiles.pollutedTransportationTiles.contains(e.data.tile)) !=
+        null;
+    final downCar = neightbours.firstWhereOrNull(
+            (e) => e.position == tilePosition.down && AppTiles.pollutedTransportationTiles.contains(e.data.tile)) !=
+        null;
+
+    if (leftCar && _leftCar == null) {
+      _leftCar = Car(tilePosition.left, state, priority: AppRenderPriorities.terrainAnimations);
+      state.mapComponent.add(_leftCar!);
+    } else if (!leftCar && _leftCar != null) {
+      state.mapComponent.remove(_leftCar!);
+      _leftCar = null;
+    }
+
+    if (rightCar && _rightCar == null) {
+      _rightCar = Car(tilePosition.right, state, priority: AppRenderPriorities.terrainAnimations);
+      state.mapComponent.add(_rightCar!);
+    } else if (!rightCar && _rightCar != null) {
+      state.mapComponent.remove(_rightCar!);
+      _rightCar = null;
+    }
+
+    if (upCar && _upCar == null) {
+      _upCar = Car(tilePosition.up, state, priority: AppRenderPriorities.terrainAnimations);
+      state.mapComponent.add(_upCar!);
+    } else if (!upCar && _upCar != null) {
+      state.mapComponent.remove(_upCar!);
+      _upCar = null;
+    }
+
+    if (downCar && _downnCar == null) {
+      _downnCar = Car(tilePosition.down, state, priority: AppRenderPriorities.terrainAnimations);
+      state.mapComponent.add(_downnCar!);
+    } else if (!downCar && _downnCar != null) {
+      state.mapComponent.remove(_downnCar!);
+      _downnCar = null;
+    }
+  }
+
+  void _removeCars(GameState state) {
+    if (_leftCar != null) {
+      state.mapComponent.remove(_leftCar!);
+      _leftCar = null;
+    }
+
+    if (_rightCar != null) {
+      state.mapComponent.remove(_rightCar!);
+      _rightCar = null;
+    }
+
+    if (_upCar != null) {
+      state.mapComponent.remove(_upCar!);
+      _upCar = null;
+    }
+
+    if (_downnCar != null) {
+      state.mapComponent.remove(_downnCar!);
+      _downnCar = null;
+    }
   }
 }
 

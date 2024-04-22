@@ -11,7 +11,7 @@ enum ResourceType {
   food('assets/images/app_assets/icons/food_icon.png', 'Food',
       'This is your food supply. It is required to maintain your population.'),
   population('assets/images/app_assets/icons/population_icon.png', 'Population',
-      'This is your population. It is required to sustain facilites and .'),
+      'This is your population. It is required to sustain facilites.'),
   electricity('assets/images/app_assets/icons/electricity_icon.png', 'Electricity',
       'This is your electricity supply. It is required to power your structures.'),
   impact('assets/images/app_assets/icons/impact_icon.png', 'Ecologial Impact',
